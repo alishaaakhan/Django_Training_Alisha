@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'votecss.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div><h1>Eligible or Not</h1></div>
+    <div>
+        <h2>Name: {{name}}</h1>
+        <h2>Age: {{age}}</h1>
+        <h2>Country: {{country}}</h1>
+    </div>
+    <div>
+        {% if age >= 18 %}
+        <h2>You are eligible for voting</h1>
+        {% else %}
+        <h2>You are not eligible for voting</h1>
+        {% endif %}
+    </div>
+    <div>
+        <img src="{% static 'vote.jpg' %}" alt="">
+    </div>
+    <div>
+        <video controls width="1200" height="500">
+    <source src="{% static 'votevid.mp4' %}" type="video/mp4">
+</video>
+    </div>
+</body>
+</html>

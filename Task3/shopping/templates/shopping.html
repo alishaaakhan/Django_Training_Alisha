@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Hub</title>
+
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            color: #ffffff;
+
+            overflow-x: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(124, 58, 237, 0.25),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(236, 72, 153, 0.20),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #070711,
+                    #10101c,
+                    #080812
+                );
+
+        }
+
+
+        /* =========================
+           BACKGROUND GLOW
+        ========================= */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            width: 300px;
+            height: 300px;
+
+            top: 10%;
+            left: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(139, 92, 246, 0.18);
+
+            filter: blur(100px);
+
+            z-index: -1;
+
+        }
+
+
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            width: 300px;
+            height: 300px;
+
+            bottom: 5%;
+            right: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(236, 72, 153, 0.15);
+
+            filter: blur(100px);
+
+            z-index: -1;
+
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+
+            text-align: center;
+
+            padding:
+                90px
+                20px
+                80px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.04
+                );
+
+            backdrop-filter: blur(20px);
+
+            -webkit-backdrop-filter: blur(20px);
+
+            border-bottom:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+
+        }
+
+
+        .header-icon {
+
+            font-size: 65px;
+
+            margin-bottom: 20px;
+
+            animation:
+                floating
+                3s
+                ease-in-out
+                infinite;
+
+            filter:
+                drop-shadow(
+                    0 0 20px
+                    rgba(
+                        168,
+                        85,
+                        247,
+                        0.7
+                    )
+                );
+
+        }
+
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+
+        }
+
+
+        .header h1 {
+
+            font-size:
+                clamp(
+                    42px,
+                    7vw,
+                    70px
+                );
+
+            letter-spacing: 2px;
+
+            font-weight: 800;
+
+        }
+
+
+        .header h1 span {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #a78bfa,
+                    #c084fc,
+                    #f472b6
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color:
+                transparent;
+
+        }
+
+
+        .header p {
+
+            margin-top: 15px;
+
+            color: #a5a5b8;
+
+            font-size: 18px;
+
+        }
+
+
+        /* =========================
+           EXPLORE BUTTON
+        ========================= */
+
+        .explore-btn {
+
+            display: inline-block;
+
+            margin-top: 30px;
+
+            padding:
+                14px
+                32px;
+
+            border-radius: 40px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #a855f7
+                );
+
+            box-shadow:
+                0 0 25px
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.35
+                );
+
+            transition: 0.3s;
+
+        }
+
+
+        .explore-btn:hover {
+
+            transform:
+                translateY(-5px)
+                scale(1.03);
+
+            box-shadow:
+                0 0 40px
+                rgba(
+                    168,
+                    85,
+                    247,
+                    0.55
+                );
+
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-section {
+
+            text-align: center;
+
+            padding:
+                65px
+                20px
+                40px;
+
+        }
+
+
+        .search-section h2 {
+
+            font-size: 30px;
+
+        }
+
+
+        .search-section p {
+
+            margin-top: 10px;
+
+            color: #9999ad;
+
+        }
+
+
+        .search-box {
+
+            width:
+                min(
+                    600px,
+                    90%
+                );
+
+            margin-top: 25px;
+
+            padding:
+                17px
+                23px;
+
+            border-radius: 50px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            outline: none;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.06
+                );
+
+            backdrop-filter: blur(15px);
+
+            -webkit-backdrop-filter: blur(15px);
+
+            color: white;
+
+            font-size: 16px;
+
+            box-shadow:
+                inset
+                0 0 20px
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.02
+                );
+
+            transition: 0.3s;
+
+        }
+
+
+        .search-box::placeholder {
+
+            color: #77778c;
+
+        }
+
+
+        .search-box:focus {
+
+            border-color:
+                #a855f7;
+
+            box-shadow:
+                0 0 20px
+                rgba(
+                    168,
+                    85,
+                    247,
+                    0.20
+                );
+
+        }
+
+
+        /* =========================
+           STORE SECTION
+        ========================= */
+
+        .stores-section {
+
+            padding:
+                50px
+                5%
+                90px;
+
+        }
+
+
+        .section-title {
+
+            text-align: center;
+
+            margin-bottom: 45px;
+
+        }
+
+
+        .small-title {
+
+            color: #a78bfa;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+
+        }
+
+
+        .section-title h2 {
+
+            margin-top: 8px;
+
+            font-size: 38px;
+
+        }
+
+
+        .section-title p {
+
+            margin-top: 10px;
+
+            color: #9292a8;
+
+        }
+
+
+        /* =========================
+           STORE CONTAINER
+        ========================= */
+
+        .shopping-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 30px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        /* =========================
+           GLASS CARD
+        ========================= */
+
+        .shop-card {
+
+            width: 330px;
+
+            position: relative;
+
+            padding: 18px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.10
+                    ),
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.035
+                    )
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            backdrop-filter: blur(25px);
+
+            -webkit-backdrop-filter: blur(25px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+
+            overflow: hidden;
+
+            transition:
+                transform 0.4s ease,
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+
+        }
+
+
+        .shop-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            top: -70px;
+            left: -70px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.18
+                );
+
+            filter: blur(30px);
+
+        }
+
+
+        .shop-card:hover {
+
+            transform:
+                translateY(-14px)
+                scale(1.02);
+
+            border-color:
+                rgba(
+                    168,
+                    85,
+                    247,
+                    0.45
+                );
+
+            box-shadow:
+                0 25px 70px
+                rgba(
+                    124,
+                    58,
+                    237,
+                    0.25
+                );
+
+        }
+
+
+        /* =========================
+           FAVORITE
+        ========================= */
+
+        .favorite {
+
+            position: absolute;
+
+            top: 15px;
+            right: 15px;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.15
+                );
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            color: #aaaabb;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+            z-index: 5;
+
+            transition: 0.3s;
+
+        }
+
+
+        .favorite:hover {
+
+            transform: scale(1.12);
+
+            color: #f472b6;
+
+            box-shadow:
+                0 0 20px
+                rgba(
+                    244,
+                    114,
+                    182,
+                    0.25
+                );
+
+        }
+
+
+        .favorite.active {
+
+            color: #f472b6;
+
+            background:
+                rgba(
+                    244,
+                    114,
+                    182,
+                    0.15
+                );
+
+            border-color:
+                rgba(
+                    244,
+                    114,
+                    182,
+                    0.35
+                );
+
+        }
+
+
+        /* =========================
+           IMAGE
+        ========================= */
+
+        .image-container {
+
+            height: 190px;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            overflow: hidden;
+
+        }
+
+
+        .shop-card img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+            transition:
+                transform 0.5s ease;
+
+        }
+
+
+        .shop-card:hover img {
+
+            transform:
+                scale(1.1);
+
+        }
+
+
+        /* =========================
+           CARD CONTENT
+        ========================= */
+
+        .card-content {
+
+            padding:
+                5px
+                5px
+                8px;
+
+        }
+
+
+        .store-number {
+
+            display: block;
+
+            margin-top: 18px;
+
+            color: #66667c;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        .shop-card h3 {
+
+            margin-top: 5px;
+
+            font-size: 27px;
+
+        }
+
+
+        .shop-card p {
+
+            margin-top: 10px;
+
+            min-height: 52px;
+
+            line-height: 1.6;
+
+            color: #9999ad;
+
+        }
+
+
+        /* =========================
+           VISIT BUTTON
+        ========================= */
+
+        .shop-btn {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-top: 20px;
+
+            padding: 13px 20px;
+
+            border-radius: 30px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-weight: bold;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #a855f7
+                );
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    124,
+                    58,
+                    237,
+                    0.25
+                );
+
+            transition: 0.3s;
+
+        }
+
+
+        .shop-btn:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(
+                    168,
+                    85,
+                    247,
+                    0.40
+                );
+
+        }
+
+
+        .shop-btn span {
+
+            font-size: 20px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .shop-btn:hover span {
+
+            transform:
+                translateX(6px);
+
+        }
+
+
+        /* =========================
+           VIDEO SECTION
+        ========================= */
+
+        .video-section {
+
+            padding:
+                80px
+                20px
+                90px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.025
+                );
+
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            border-bottom:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+        }
+
+
+        .video-box {
+
+            width:
+                min(
+                    1200px,
+                    92vw
+                );
+
+            margin: auto;
+
+            padding: 12px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.06
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            backdrop-filter:
+                blur(20px);
+
+            box-shadow:
+                0 25px 70px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.40
+                );
+
+        }
+
+
+        video {
+
+            width: 100%;
+
+            max-height: 600px;
+
+            display: block;
+
+            border-radius: 18px;
+
+        }
+
+
+        /* =========================
+           NOTIFICATION
+        ========================= */
+
+        .notification {
+
+            position: fixed;
+
+            left: 50%;
+
+            bottom: 30px;
+
+            transform:
+                translateX(-50%)
+                translateY(100px);
+
+            padding:
+                14px
+                25px;
+
+            border-radius: 50px;
+
+            background:
+                rgba(
+                    30,
+                    30,
+                    45,
+                    0.90
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            backdrop-filter:
+                blur(15px);
+
+            color: white;
+
+            box-shadow:
+                0 10px 40px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.4
+                );
+
+            opacity: 0;
+
+            transition: 0.4s;
+
+            z-index: 100;
+
+        }
+
+
+        .notification.show {
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+
+            opacity: 1;
+
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            text-align: center;
+
+            padding:
+                40px
+                20px;
+
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
+
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+        }
+
+
+        .footer-logo {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        footer p {
+
+            margin-top: 8px;
+
+            color: #85859b;
+
+        }
+
+
+        footer span {
+
+            display: block;
+
+            margin-top: 8px;
+
+            color: #5f5f75;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .header {
+
+                padding:
+                    60px
+                    20px;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 42px;
+
+            }
+
+
+            .shop-card {
+
+                width:
+                    min(
+                        100%,
+                        400px
+                    );
+
+            }
+
+
+            .section-title h2 {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .header h1 {
+
+                font-size: 36px;
+
+            }
+
+
+            .header p {
+
+                font-size: 16px;
+
+            }
+
+
+            .shop-card {
+
+                width: 100%;
+
+            }
+
+
+            .image-container {
+
+                height: 170px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="header-icon">
+            🛍️
+        </div>
+
+        <h1>
+            Shopping <span>Hub</span>
+        </h1>
+
+        <p>
+            Your favorite shopping platforms in one place
+        </p>
+
+        <a
+            href="#stores"
+            class="explore-btn">
+
+            Explore Stores ↓
+
+        </a>
+
+    </header>
+
+
+
+    <!-- =========================
+         SEARCH
+    ========================== -->
+
+    <section class="search-section">
+
+        <h2>
+            🔎 Find Your Store
+        </h2>
+
+        <p>
+            Search from your favorite shopping platforms
+        </p>
+
+        <input
+            type="text"
+            id="search"
+            class="search-box"
+            placeholder="Search Amazon, Flipkart, Meesho..."
+        >
+
+    </section>
+
+
+
+    <!-- =========================
+         STORES
+    ========================== -->
+
+    <section
+        class="stores-section"
+        id="stores">
+
+
+        <div class="section-title">
+
+            <span class="small-title">
+                SHOPPING PLATFORMS
+            </span>
+
+            <h2>
+                Explore Stores
+            </h2>
+
+            <p>
+                Choose your favorite platform and start shopping
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="shopping-container"
+            id="storeContainer">
+
+
+            <!-- AMAZON -->
+
+            <div
+                class="shop-card"
+                data-name="amazon">
+
+
+                <button
+                    class="favorite"
+                    type="button">
+
+                    ♡
+
+                </button>
+
+
+                <div class="image-container">
+
+                    <img
+                        src="{% static 'amazon.png' %}"
+                        alt="Amazon Logo">
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <span class="store-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Amazon
+                    </h3>
+
+                    <p>
+                        Shop millions of products at great prices.
+                    </p>
+
+                    <a
+                        href="https://www.amazon.in/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="shop-btn">
+
+                        Visit Amazon
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FLIPKART -->
+
+            <div
+                class="shop-card"
+                data-name="flipkart">
+
+
+                <button
+                    class="favorite"
+                    type="button">
+
+                    ♡
+
+                </button>
+
+
+                <div class="image-container">
+
+                    <img
+                        src="{% static 'flipkart.png' %}"
+                        alt="Flipkart Logo">
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <span class="store-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Flipkart
+                    </h3>
+
+                    <p>
+                        Discover electronics, fashion and much more.
+                    </p>
+
+                    <a
+                        href="https://www.flipkart.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="shop-btn">
+
+                        Visit Flipkart
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MEESHO -->
+
+            <div
+                class="shop-card"
+                data-name="meesho">
+
+
+                <button
+                    class="favorite"
+                    type="button">
+
+                    ♡
+
+                </button>
+
+
+                <div class="image-container">
+
+                    <img
+                        src="{% static 'Meesho_logo.png' %}"
+                        alt="Meesho Logo">
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <span class="store-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Meesho
+                    </h3>
+
+                    <p>
+                        Explore affordable fashion and lifestyle products.
+                    </p>
+
+                    <a
+                        href="https://www.meesho.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="shop-btn">
+
+                        Visit Meesho
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         VIDEO
+    ========================== -->
+
+    <section class="video-section">
+
+
+        <div class="section-title">
+
+            <span class="small-title">
+                SHOPPING GUIDE
+            </span>
+
+            <h2>
+                🎬 Shopping Experience
+            </h2>
+
+            <p>
+                Watch our shopping guide
+            </p>
+
+        </div>
+
+
+        <div class="video-box">
+
+            <video
+                controls
+                autoplay
+                muted
+                loop
+                playsinline>
+
+                <source
+                    src="{% static 'shoppingvid.mp4' %}"
+                    type="video/mp4">
+
+                Your browser does not support the video tag.
+
+            </video>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         NOTIFICATION
+    ========================== -->
+
+    <div
+        id="notification"
+        class="notification">
+
+        ❤️ Added to favorites!
+
+    </div>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-logo">
+            🛍️ Shopping Hub
+        </div>
+
+        <p>
+            Shop smart. Shop easy.
+        </p>
+
+        <span>
+            © 2026 Shopping Hub. All rights reserved.
+        </span>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+
+        /* SEARCH */
+
+        const search =
+            document.getElementById("search");
+
+        const cards =
+            document.querySelectorAll(".shop-card");
+
+
+        search.addEventListener(
+            "input",
+            function () {
+
+                const value =
+                    search.value
+                    .toLowerCase()
+                    .trim();
+
+
+                cards.forEach(
+                    function (card) {
+
+                        const name =
+                            card.dataset.name
+                            .toLowerCase();
+
+
+                        if (
+                            name.includes(value)
+                        ) {
+
+                            card.style.display =
+                                "block";
+
+                        } else {
+
+                            card.style.display =
+                                "none";
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* FAVORITES */
+
+        const favorites =
+            document.querySelectorAll(
+                ".favorite"
+            );
+
+
+        const notification =
+            document.getElementById(
+                "notification"
+            );
+
+
+        favorites.forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        button.classList.toggle(
+                            "active"
+                        );
+
+
+                        if (
+                            button.classList.contains(
+                                "active"
+                            )
+                        ) {
+
+                            button.textContent =
+                                "♥";
+
+                            notification.textContent =
+                                "❤️ Added to favorites!";
+
+                        } else {
+
+                            button.textContent =
+                                "♡";
+
+                            notification.textContent =
+                                "💔 Removed from favorites!";
+
+                        }
+
+
+                        notification.classList.add(
+                            "show"
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                notification.classList.remove(
+                                    "show"
+                                );
+
+                            },
+                            1500
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

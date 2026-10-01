@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Student Registration Portal</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Inter, Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+
+        background:
+            radial-gradient(
+                circle at 15% 20%,
+                rgba(129, 140, 248, 0.28),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 85% 75%,
+                rgba(96, 165, 250, 0.25),
+                transparent 35%
+            ),
+            linear-gradient(
+                135deg,
+                #eef2ff,
+                #f8fafc,
+                #e0f2fe
+            );
+
+        position: relative;
+    }
+
+
+    /* Background Blur Shapes */
+
+    .blur-shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: 0.55;
+        animation: move 8s ease-in-out infinite;
+    }
+
+    .shape-one {
+        width: 300px;
+        height: 300px;
+        background: #c4b5fd;
+        top: -100px;
+        left: -80px;
+    }
+
+    .shape-two {
+        width: 350px;
+        height: 350px;
+        background: #bae6fd;
+        right: -120px;
+        bottom: -120px;
+        animation-delay: 2s;
+    }
+
+    .shape-three {
+        width: 180px;
+        height: 180px;
+        background: #ddd6fe;
+        right: 20%;
+        top: 10%;
+        animation-delay: 4s;
+    }
+
+    @keyframes move {
+
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+
+        50% {
+            transform: translate(20px, -20px);
+        }
+
+    }
+
+
+    /* Glass Container */
+
+    .container {
+        width: 90%;
+        max-width: 650px;
+
+        padding: 58px 55px;
+
+        text-align: center;
+
+        background: rgba(255, 255, 255, 0.42);
+
+        border: 1px solid rgba(255, 255, 255, 0.75);
+
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+
+        border-radius: 28px;
+
+        box-shadow:
+            0 25px 70px rgba(71, 85, 105, 0.15),
+            inset 0 1px 1px rgba(255, 255, 255, 0.8);
+
+        position: relative;
+        z-index: 2;
+
+        animation: appear 0.8s ease forwards;
+
+        transition: transform 0.4s ease,
+                    box-shadow 0.4s ease;
+    }
+
+    .container:hover {
+        transform: translateY(-4px);
+
+        box-shadow:
+            0 35px 80px rgba(71, 85, 105, 0.20),
+            inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    }
+
+    @keyframes appear {
+
+        from {
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    }
+
+
+    /* Minimal Brand Mark */
+
+    .brand-mark {
+        width: 58px;
+        height: 58px;
+
+        margin: 0 auto 25px;
+
+        border-radius: 16px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+        box-shadow:
+            0 10px 25px rgba(99, 102, 241, 0.25);
+
+        position: relative;
+    }
+
+    .brand-mark::before {
+        content: "";
+
+        width: 20px;
+        height: 20px;
+
+        border: 3px solid white;
+        border-radius: 6px;
+
+        opacity: 0.95;
+    }
+
+    .brand-mark::after {
+        content: "";
+
+        position: absolute;
+
+        width: 8px;
+        height: 8px;
+
+        border-radius: 50%;
+
+        background: white;
+
+        bottom: 15px;
+        right: 15px;
+    }
+
+
+    /* Heading */
+
+    h1 {
+        font-size: 38px;
+        font-weight: 700;
+
+        letter-spacing: -1px;
+
+        color: #1e293b;
+
+        margin-bottom: 14px;
+    }
+
+
+    /* Description */
+
+    .description {
+        max-width: 470px;
+
+        margin: 0 auto 38px;
+
+        color: #64748b;
+
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+
+    /* Buttons */
+
+    .home-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .btn {
+        min-width: 175px;
+
+        padding: 14px 25px;
+
+        border-radius: 12px;
+
+        text-decoration: none;
+
+        font-size: 15px;
+        font-weight: 600;
+
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease,
+            background 0.3s ease;
+    }
+
+
+    /* Primary */
+
+    .btn-primary {
+        color: white;
+
+        background: linear-gradient(
+            135deg,
+            #6366f1,
+            #7c3aed
+        );
+
+        box-shadow:
+            0 8px 20px rgba(99, 102, 241, 0.25);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 14px 28px rgba(99, 102, 241, 0.32);
+    }
+
+
+    /* Secondary */
+
+    .btn-secondary {
+        color: #475569;
+
+        background: rgba(255, 255, 255, 0.55);
+
+        border: 1px solid rgba(148, 163, 184, 0.25);
+
+        box-shadow:
+            0 5px 15px rgba(71, 85, 105, 0.08);
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-3px);
+
+        background: rgba(255, 255, 255, 0.8);
+
+        box-shadow:
+            0 12px 25px rgba(71, 85, 105, 0.12);
+    }
+
+
+    /* Bottom Line */
+
+    .footer-text {
+        margin-top: 32px;
+
+        font-size: 13px;
+
+        color: #94a3b8;
+
+        letter-spacing: 0.2px;
+    }
+
+
+    /* Responsive */
+
+    @media (max-width: 600px) {
+
+        .container {
+            padding: 45px 25px;
+        }
+
+        h1 {
+            font-size: 29px;
+        }
+
+        .description {
+            font-size: 14px;
+        }
+
+        .home-buttons {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<!-- Background -->
+
+<div class="blur-shape shape-one"></div>
+<div class="blur-shape shape-two"></div>
+<div class="blur-shape shape-three"></div>
+
+
+<!-- Main Glass Card -->
+
+<div class="container">
+
+    <div class="brand-mark"></div>
+
+    <h1>
+        Student Registration Portal
+    </h1>
+
+    <p class="description">
+        A simple and secure platform to manage your
+        student registration, account access and academic journey.
+    </p>
+
+
+    <div class="home-buttons">
+
+        <a href="{% url 'signup' %}"
+           class="btn btn-primary">
+            Create Account
+        </a>
+
+        <a href="{% url 'login' %}"
+           class="btn btn-secondary">
+            Log In
+        </a>
+
+    </div>
+
+
+    <p class="footer-text">
+        Secure access · Simple experience · Built for students
+    </p>
+
+</div>
+
+</body>
+
+</html>

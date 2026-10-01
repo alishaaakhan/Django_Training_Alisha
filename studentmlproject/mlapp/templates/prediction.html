@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Prediction</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'style.css' %}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container prediction-container">
+
+        <div class="icon">
+            📊
+        </div>
+
+        <h1>
+            Student Placement Prediction
+        </h1>
+
+        <p class="subtitle">
+            Enter your academic and profile details
+            to predict your placement status.
+        </p>
+
+
+        <form
+            action="{% url 'result' %}"
+            method="GET"
+        >
+
+
+            <div class="input-group">
+
+                <label>
+                    CGPA
+                </label>
+
+                <input
+                    type="number"
+                    name="cgpa"
+                    step="0.01"
+                    min="0"
+                    max="10"
+                    placeholder="Enter CGPA"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    IQ
+                </label>
+
+                <input
+                    type="number"
+                    name="iq"
+                    step="0.01"
+                    placeholder="Enter IQ"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Profile Score
+                </label>
+
+                <input
+                    type="number"
+                    name="profile_score"
+                    step="0.01"
+                    placeholder="Enter profile score"
+                    required
+                >
+
+            </div>
+
+
+            <input
+                type="submit"
+                value="Predict Placement"
+            >
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

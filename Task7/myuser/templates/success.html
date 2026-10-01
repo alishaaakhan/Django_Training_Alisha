@@ -1,0 +1,408 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Registration Successful</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Inter, Arial, sans-serif;
+    }
+
+
+    body {
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        overflow: hidden;
+
+        position: relative;
+
+        background:
+            radial-gradient(
+                circle at 15% 20%,
+                rgba(129, 140, 248, 0.28),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 85% 75%,
+                rgba(96, 165, 250, 0.25),
+                transparent 35%
+            ),
+            linear-gradient(
+                135deg,
+                #eef2ff,
+                #f8fafc,
+                #e0f2fe
+            );
+    }
+
+
+    /* Background Blur Shapes */
+
+    .blur {
+        position: absolute;
+
+        border-radius: 50%;
+
+        filter: blur(75px);
+
+        opacity: 0.55;
+
+        animation: floating 8s ease-in-out infinite;
+    }
+
+
+    .blur-one {
+        width: 280px;
+        height: 280px;
+
+        background: #c4b5fd;
+
+        top: -90px;
+        left: -70px;
+    }
+
+
+    .blur-two {
+        width: 330px;
+        height: 330px;
+
+        background: #bae6fd;
+
+        right: -100px;
+        bottom: -120px;
+
+        animation-delay: 2s;
+    }
+
+
+    .blur-three {
+        width: 160px;
+        height: 160px;
+
+        background: #ddd6fe;
+
+        right: 18%;
+        top: 12%;
+
+        animation-delay: 4s;
+    }
+
+
+    @keyframes floating {
+
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+
+        50% {
+            transform: translate(20px, -20px);
+        }
+
+    }
+
+
+    /* Glass Card */
+
+    .container {
+        width: 90%;
+        max-width: 500px;
+
+        padding: 50px 42px;
+
+        position: relative;
+        z-index: 2;
+
+        text-align: center;
+
+        background: rgba(255, 255, 255, 0.48);
+
+        border: 1px solid rgba(255, 255, 255, 0.75);
+
+        border-radius: 26px;
+
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+
+        box-shadow:
+            0 25px 70px rgba(71, 85, 105, 0.16),
+            inset 0 1px 1px rgba(255, 255, 255, 0.85);
+
+        animation: cardEntry 0.7s ease;
+    }
+
+
+    @keyframes cardEntry {
+
+        from {
+            opacity: 0;
+            transform: translateY(25px) scale(0.97);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+    }
+
+
+    /* Success Circle */
+
+    .success-icon {
+        width: 72px;
+        height: 72px;
+
+        margin: 0 auto 25px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        color: #16a34a;
+
+        font-size: 34px;
+        font-weight: 600;
+
+        background: rgba(220, 252, 231, 0.72);
+
+        border: 1px solid rgba(134, 239, 172, 0.45);
+
+        box-shadow:
+            0 10px 28px rgba(34, 197, 94, 0.14);
+
+        animation: successPop 0.6s ease 0.3s both;
+    }
+
+
+    @keyframes successPop {
+
+        0% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        70% {
+            transform: scale(1.08);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+    }
+
+
+    /* Heading */
+
+    h1 {
+        color: #1e293b;
+
+        font-size: 32px;
+
+        font-weight: 700;
+
+        letter-spacing: -0.6px;
+
+        margin-bottom: 12px;
+    }
+
+
+    /* Description */
+
+    .description {
+        max-width: 390px;
+
+        margin: 0 auto 34px;
+
+        color: #64748b;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+
+    /* Buttons */
+
+    .success-buttons {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 13px;
+    }
+
+
+    .btn {
+        min-width: 165px;
+
+        padding: 13px 22px;
+
+        border-radius: 11px;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease,
+            background 0.3s ease;
+    }
+
+
+    /* Primary Button */
+
+    .btn-primary {
+        color: white;
+
+        background: linear-gradient(
+            135deg,
+            #6366f1,
+            #7c3aed
+        );
+
+        box-shadow:
+            0 9px 22px rgba(99, 102, 241, 0.25);
+    }
+
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 14px 28px rgba(99, 102, 241, 0.32);
+    }
+
+
+    /* Secondary Button */
+
+    .btn-secondary {
+        color: #475569;
+
+        background: rgba(255, 255, 255, 0.58);
+
+        border: 1px solid rgba(148, 163, 184, 0.25);
+
+        box-shadow:
+            0 6px 16px rgba(71, 85, 105, 0.08);
+    }
+
+
+    .btn-secondary:hover {
+        transform: translateY(-3px);
+
+        background: rgba(255, 255, 255, 0.82);
+
+        box-shadow:
+            0 12px 24px rgba(71, 85, 105, 0.12);
+    }
+
+
+    /* Responsive */
+
+    @media (max-width: 600px) {
+
+        .container {
+            padding: 42px 25px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        .description {
+            font-size: 14px;
+        }
+
+        .success-buttons {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+    }
+
+</style>
+</head>
+
+<body>
+
+<!-- Background -->
+
+<div class="blur blur-one"></div>
+<div class="blur blur-two"></div>
+<div class="blur blur-three"></div>
+
+
+<!-- Success Card -->
+
+<div class="container success-container">
+
+
+    <div class="success-icon">
+        ✓
+    </div>
+
+
+    <h1>
+        Record Saved!
+    </h1>
+
+
+    <p class="description">
+        The student record has been successfully saved
+        to the database.
+    </p>
+
+
+    <div class="success-buttons">
+
+        <a
+            href="{% url 'studentregistration' %}"
+            class="btn btn-primary"
+        >
+            New Student
+        </a>
+
+
+        <a
+            href="{% url 'home' %}"
+            class="btn btn-secondary"
+        >
+            Home
+        </a>
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>

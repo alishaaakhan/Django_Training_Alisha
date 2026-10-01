@@ -1,0 +1,633 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+
+    <title>OIST</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            background: linear-gradient(
+                135deg,
+                #dbeafe,
+                #bfdbfe,
+                #e0f2fe
+            );
+
+            color: #0f172a;
+        }
+
+
+        /* Heading Section */
+
+        .college-info {
+            text-align: center;
+
+            margin-top: 65px;
+
+            max-width: 850px;
+
+            padding: 0 25px;
+        }
+
+        .college-info h1 {
+            margin-bottom: 15px;
+
+            font-size: 42px;
+
+            color: #1e3a8a;
+
+            letter-spacing: 1px;
+
+            text-shadow:
+                0 3px 10px rgba(30, 64, 175, 0.20);
+        }
+
+        .college-info p {
+            font-size: 17px;
+
+            line-height: 1.7;
+
+            color: #334155;
+
+            margin: 0;
+        }
+
+
+        /* Navigation */
+
+        .nav-buttons {
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 25px;
+
+            margin-top: 45px;
+
+            padding: 30px;
+
+            background: rgba(255, 255, 255, 0.38);
+
+            border: 1px solid rgba(255, 255, 255, 0.60);
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 15px 40px rgba(30, 64, 175, 0.18);
+
+            backdrop-filter: blur(18px);
+        }
+
+
+        .nav-buttons a {
+            text-decoration: none;
+        }
+
+
+        /* Buttons */
+
+        .nav-buttons button {
+
+            width: 150px;
+
+            padding: 14px 20px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            box-shadow:
+                0 6px 18px rgba(15, 23, 42, 0.18);
+        }
+
+
+        /* Button Colors */
+
+        .home {
+            background: linear-gradient(
+                135deg,
+                #1d4ed8,
+                #2563eb
+            );
+        }
+
+        .sistec {
+            background: linear-gradient(
+                135deg,
+                #0369a1,
+                #0284c7
+            );
+        }
+
+        .lnct {
+            background: linear-gradient(
+                135deg,
+                #0e7490,
+                #0891b2
+            );
+        }
+
+        .oist {
+            background: linear-gradient(
+                135deg,
+                #4338ca,
+                #2563eb
+            );
+        }
+
+
+        /* Hover */
+
+        .nav-buttons button:hover {
+
+            transform:
+                translateY(-6px)
+                scale(1.03);
+
+            box-shadow:
+                0 12px 28px rgba(30, 64, 175, 0.30);
+        }
+
+
+        /* Click */
+
+        .nav-buttons button:active {
+            transform: translateY(-2px);
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            .nav-buttons {
+                flex-direction: column;
+
+                width: 85%;
+            }
+
+            .nav-buttons button {
+                width: 220px;
+            }
+
+            .college-info h1 {
+                font-size: 34px;
+            }
+
+            .college-info p {
+                font-size: 15px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+
+    <div class="college-info">
+
+        <h1>
+            Oriental Institute of Science and Technology
+        </h1>
+
+        <p>
+            Oriental Institute of Science and Technology (OIST) is
+            an engineering and technology institute located in Bhopal,
+            Madhya Pradesh. The institute offers undergraduate and
+            postgraduate programs in engineering, technology and
+            management, with a focus on academic learning, practical
+            skills, innovation and professional development.
+        </p>
+
+    </div>
+
+
+    <div class="nav-buttons">
+
+        <a href="{% url 'oist' %}">
+            <button class="home">
+                Home
+            </button>
+        </a>
+
+
+        <a href="{% url 'sistec' %}">
+            <button class="sistec">
+                SISTec
+            </button>
+        </a>
+
+
+        <a href="{% url 'lnct' %}">
+            <button class="lnct">
+                LNCT
+            </button>
+        </a>
+
+
+        <a href="{% url 'oist' %}">
+            <button class="oist">
+                OIST
+            </button>
+        </a>
+
+    </div>
+
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>OIST | College Explorer</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(139,92,246,0.3),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(59,130,246,0.2),
+                    transparent 30%
+                ),
+                #070b18;
+
+            padding: 25px;
+
+        }
+
+
+        .page {
+
+            width: min(1050px, 100%);
+
+            margin: auto;
+
+        }
+
+
+        nav {
+
+            padding: 15px 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,0.07);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            backdrop-filter: blur(20px);
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .logo {
+            font-weight: 700;
+        }
+
+
+        .logo span {
+            color: #a78bfa;
+        }
+
+
+        nav a {
+
+            text-decoration: none;
+
+            color:
+                rgba(255,255,255,0.6);
+
+            font-size: 12px;
+
+        }
+
+
+        .hero {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 0.9fr;
+
+            gap: 35px;
+
+            align-items: center;
+
+            padding: 35px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255,255,255,0.07);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            backdrop-filter: blur(20px);
+
+        }
+
+
+        .content span {
+
+            color: #a78bfa;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        h1 {
+
+            margin: 15px 0;
+
+            font-size:
+                clamp(32px, 5vw, 55px);
+
+            line-height: 1.1;
+
+        }
+
+
+        .content p {
+
+            color:
+                rgba(255,255,255,0.5);
+
+            line-height: 1.8;
+
+            font-size: 14px;
+
+        }
+
+
+        .image {
+
+            height: 360px;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+        }
+
+
+        .image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.5s;
+
+        }
+
+
+        .image:hover img {
+            transform: scale(1.05);
+        }
+
+
+        .nav-buttons {
+
+            margin-top: 25px;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+        }
+
+
+        .nav-buttons a {
+
+            text-decoration: none;
+
+            color: white;
+
+            padding: 11px 17px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.07);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.1);
+
+            font-size: 11px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .nav-buttons a:hover {
+
+            background: #7c3aed;
+
+            transform: translateY(-2px);
+
+        }
+
+
+        .active {
+
+            background:
+                rgba(124,58,237,0.7) !important;
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+
+            .image {
+                height: 280px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <nav>
+
+        <div class="logo">
+            Campus<span>Explorer</span>
+        </div>
+
+        <a href="{% url 'main' %}">
+            ← Back to Home
+        </a>
+
+    </nav>
+
+
+    <section class="hero">
+
+
+        <div class="content">
+
+            <span>
+                Technology Institute • Bhopal
+            </span>
+
+            <h1>
+                OIST
+            </h1>
+
+            <p>
+
+                Oriental Institute of Science and Technology
+                (OIST) is an engineering and technology
+                institute located in Bhopal, Madhya Pradesh.
+                The institute offers undergraduate and
+                postgraduate programs with an emphasis on
+                academic learning, practical skills,
+                innovation and professional development.
+
+            </p>
+
+
+            <div class="nav-buttons">
+
+                <a href="{% url 'main' %}">
+                    Home
+                </a>
+
+                <a href="{% url 'sistec' %}">
+                    SISTec
+                </a>
+
+                <a href="{% url 'lnct' %}">
+                    LNCT
+                </a>
+
+                <a
+                    href="{% url 'oist' %}"
+                    class="active"
+                >
+                    OIST
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="image">
+
+            <img
+                src="{% static 'oist.jpg' %}"
+                alt="OIST Campus"
+            >
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+</body>
+
+</html>
+

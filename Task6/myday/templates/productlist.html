@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Product List</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 30px;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(99,102,241,0.35),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(168,85,247,0.3),
+                    transparent 30%
+                ),
+                #070b18;
+
+            overflow-x: hidden;
+
+        }
+
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+
+            pointer-events: none;
+
+        }
+
+
+        .container {
+
+            width: min(950px, 100%);
+
+            padding: 35px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255,255,255,0.09);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.16);
+
+            backdrop-filter: blur(25px);
+
+            -webkit-backdrop-filter: blur(25px);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.4);
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .heading h1 {
+
+            font-size: 30px;
+
+            letter-spacing: -0.7px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .heading p {
+
+            font-size: 13px;
+
+            color:
+                rgba(255,255,255,0.45);
+
+        }
+
+
+        .back-btn {
+
+            text-decoration: none;
+
+            color:
+                rgba(255,255,255,0.7);
+
+            padding: 10px 16px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.1);
+
+            font-size: 12px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .back-btn:hover {
+
+            color: white;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            transform: translateX(-3px);
+
+        }
+
+
+        .table-box {
+
+            overflow-x: auto;
+
+            border-radius: 16px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            min-width: 700px;
+
+            border-collapse: collapse;
+
+        }
+
+
+        th {
+
+            padding: 17px 20px;
+
+            text-align: left;
+
+            background:
+                rgba(20,25,50,0.85);
+
+            color:
+                rgba(255,255,255,0.55);
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.8px;
+
+            font-weight: 600;
+
+        }
+
+
+        td {
+
+            padding: 19px 20px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.06);
+
+            color:
+                rgba(255,255,255,0.75);
+
+            font-size: 14px;
+
+            transition: 0.25s;
+
+        }
+
+
+        tbody tr:hover td {
+
+            background:
+                rgba(255,255,255,0.08);
+
+            color: white;
+
+        }
+
+
+        /* Product ID */
+
+        .id-link {
+
+            color: #a5b4fc;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+        }
+
+
+        .id-link:hover {
+
+            color: #c4b5fd;
+
+            text-decoration: underline;
+
+        }
+
+
+        /* Product Name */
+
+        td:nth-child(2) {
+
+            font-weight: 600;
+
+            color: white;
+
+        }
+
+
+        /* Price */
+
+        td:nth-child(3) {
+
+            color: #93c5fd;
+
+            font-weight: 600;
+
+        }
+
+
+        /* Offer */
+
+        td:nth-child(4) {
+
+            color: #86efac;
+
+            font-weight: 600;
+
+        }
+
+
+        /* Delete Button */
+
+        .delete-btn {
+
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            color: #f87171;
+
+            background:
+                rgba(239,68,68,0.10);
+
+            border:
+                1px solid
+                rgba(239,68,68,0.20);
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+        }
+
+
+        .delete-btn:hover {
+
+            background:
+                rgba(239,68,68,0.18);
+
+            color: white;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(239,68,68,0.15);
+
+        }
+
+
+        .footer {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 20px;
+
+            color:
+                rgba(255,255,255,0.3);
+
+            font-size: 11px;
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            body {
+
+                padding: 15px;
+
+                align-items: flex-start;
+
+                padding-top: 30px;
+
+            }
+
+
+            .container {
+
+                padding: 22px;
+
+            }
+
+
+            .top {
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+                flex-direction: column;
+
+            }
+
+
+            .heading h1 {
+
+                font-size: 26px;
+
+            }
+
+
+            .footer {
+
+                flex-direction: column;
+
+                gap: 7px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <div class="top">
+
+            <div class="heading">
+
+                <h1>
+                    Product List
+                </h1>
+
+                <p>
+                    View all products stored in the database.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'home' %}"
+                class="back-btn"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Product Name</th>
+
+                        <th>Product Price</th>
+
+                        <th>Product Offer</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for i in Products %}
+
+                    <tr>
+
+
+                        <!-- ID → Update Product -->
+
+                        <td>
+
+                            <a
+                                href="{% url 'updateproductform' %}?id={{ i.id }}"
+                                class="id-link"
+                            >
+                                #{{ i.id }}
+                            </a>
+
+                        </td>
+
+
+                        <td>
+                            {{ i.p_name }}
+                        </td>
+
+
+                        <td>
+                            ₹{{ i.p_price }}
+                        </td>
+
+
+                        <td>
+                            {{ i.p_offer }}
+                        </td>
+
+
+                        <!-- Delete -->
+
+                        <td>
+
+                            <a
+                                href="{% url 'delete' %}?id={{ i.id }}"
+                                class="delete-btn"
+                            >
+                                Delete
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="footer">
+
+            <span>
+                Product Management System
+            </span>
+
+            <span>
+                Django CRUD
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+

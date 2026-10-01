@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ test.title }} | Online Testing System</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            padding: 32px 20px;
+
+            background:
+
+                radial-gradient(
+                    circle at 8% 8%,
+                    rgba(99,102,241,0.34),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 92% 92%,
+                    rgba(168,85,247,0.28),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgba(59,130,246,0.07),
+                    transparent 35%
+                ),
+
+                #070b18;
+
+            overflow-x: hidden;
+
+        }
+
+
+        /* =========================================
+           BACKGROUND GRID
+        ========================================= */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 46px 46px;
+
+            pointer-events: none;
+
+            z-index: 0;
+
+        }
+
+
+        /* =========================================
+           AMBIENT ORBS
+        ========================================= */
+
+        .orb {
+
+            position: fixed;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            filter: blur(20px);
+
+            z-index: 0;
+
+            animation:
+                float 10s ease-in-out infinite;
+
+        }
+
+
+        .orb-one {
+
+            width: 300px;
+
+            height: 300px;
+
+            top: -120px;
+
+            left: -100px;
+
+            background:
+                rgba(99,102,241,0.13);
+
+        }
+
+
+        .orb-two {
+
+            width: 340px;
+
+            height: 340px;
+
+            right: -140px;
+
+            bottom: -130px;
+
+            background:
+                rgba(168,85,247,0.12);
+
+            animation-delay: -4s;
+
+        }
+
+
+        .orb-three {
+
+            width: 170px;
+
+            height: 170px;
+
+            top: 45%;
+
+            left: 42%;
+
+            background:
+                rgba(59,130,246,0.055);
+
+            filter: blur(45px);
+
+            animation-delay: -7s;
+
+        }
+
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0,0);
+            }
+
+            50% {
+                transform: translate(25px,-20px);
+            }
+
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .container {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: min(1000px, 100%);
+
+            margin: auto;
+
+            padding: 34px;
+
+            border-radius: 28px;
+
+            background:
+                rgba(255,255,255,0.075);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            backdrop-filter:
+                blur(30px);
+
+            -webkit-backdrop-filter:
+                blur(30px);
+
+            box-shadow:
+
+                0 35px 100px
+                rgba(0,0,0,0.52),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.08);
+
+            animation:
+                pageEnter 0.65s ease;
+
+        }
+
+
+        @keyframes pageEnter {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(20px)
+                    scale(0.985);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding-bottom: 26px;
+
+            margin-bottom: 25px;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .title-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            min-width: 0;
+
+        }
+
+
+        .test-icon {
+
+            width: 54px;
+
+            height: 54px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 16px;
+
+            font-size: 21px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+
+                0 12px 35px
+                rgba(99,102,241,0.27),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.25);
+
+        }
+
+
+        .header h1 {
+
+            font-size: 28px;
+
+            letter-spacing: -0.7px;
+
+            margin-bottom: 7px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+        }
+
+
+        .description {
+
+            color:
+                rgba(255,255,255,0.42);
+
+            font-size: 11px;
+
+            max-width: 650px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .back-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            flex-shrink: 0;
+
+            text-decoration: none;
+
+            color:
+                rgba(255,255,255,0.68);
+
+            padding:
+                11px 16px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255,255,255,0.055);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            font-size: 11px;
+
+            transition:
+                0.25s;
+
+        }
+
+
+        .back-btn:hover {
+
+            color: white;
+
+            background:
+                rgba(255,255,255,0.11);
+
+            transform:
+                translateX(-3px);
+
+        }
+
+
+        /* =========================================
+           PROGRESS
+        ========================================= */
+
+        .progress-area {
+
+            margin-bottom: 26px;
+
+            padding: 17px 18px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .progress-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .progress-label {
+
+            color:
+                rgba(255,255,255,0.43);
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.9px;
+
+        }
+
+
+        .question-count {
+
+            color:
+                #a5b4fc;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+        }
+
+
+        .progress-bar {
+
+            width: 100%;
+
+            height: 6px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,0.065);
+
+        }
+
+
+        .progress-fill {
+
+            width: 100%;
+
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #6366f1,
+                    #8b5cf6,
+                    #a855f7
+                );
+
+            box-shadow:
+                0 0 15px
+                rgba(139,92,246,0.35);
+
+        }
+
+
+        /* =========================================
+           QUESTION CARD
+        ========================================= */
+
+        .question {
+
+            position: relative;
+
+            padding: 25px;
+
+            margin-bottom: 15px;
+
+            border-radius: 19px;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.085);
+
+            transition:
+                0.3s;
+
+            animation:
+                questionEnter 0.5s ease both;
+
+        }
+
+
+        .question::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 25px;
+
+            right: 25px;
+
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(165,180,252,0.20),
+                    transparent
+                );
+
+            opacity: 0;
+
+            transition:
+                0.3s;
+
+        }
+
+
+        .question:hover {
+
+            background:
+                rgba(255,255,255,0.065);
+
+            border-color:
+                rgba(165,180,252,0.16);
+
+            box-shadow:
+                0 16px 35px
+                rgba(0,0,0,0.17);
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        .question:hover::before {
+
+            opacity: 1;
+
+        }
+
+
+        @keyframes questionEnter {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(12px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        .question-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 14px;
+
+        }
+
+
+        .question-number {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 35px;
+
+            height: 27px;
+
+            padding: 0 10px;
+
+            border-radius: 8px;
+
+            color:
+                #c4b5fd;
+
+            background:
+                rgba(99,102,241,0.12);
+
+            border:
+                1px solid
+                rgba(129,140,248,0.18);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.6px;
+
+        }
+
+
+        .question-points {
+
+            color:
+                rgba(255,255,255,0.29);
+
+            font-size: 9px;
+
+        }
+
+
+        .question-text {
+
+            font-size: 16px;
+
+            line-height: 1.6;
+
+            margin-bottom: 19px;
+
+            color:
+                rgba(255,255,255,0.92);
+
+        }
+
+
+        /* =========================================
+           OPTIONS
+        ========================================= */
+
+        .options {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+        }
+
+
+        .option {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            min-height: 52px;
+
+            padding:
+                11px 14px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.075);
+
+            cursor: pointer;
+
+            transition:
+                0.25s;
+
+            overflow: hidden;
+
+        }
+
+
+        .option::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    transparent,
+                    rgba(255,255,255,0.04),
+                    transparent
+                );
+
+            transform:
+                translateX(-100%);
+
+            transition:
+                0.5s;
+
+        }
+
+
+        .option:hover::after {
+
+            transform:
+                translateX(100%);
+
+        }
+
+
+        .option:hover {
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border-color:
+                rgba(165,180,252,0.22);
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        .option:has(input:checked) {
+
+            background:
+                rgba(99,102,241,0.14);
+
+            border-color:
+                rgba(129,140,248,0.55);
+
+            box-shadow:
+
+                0 8px 25px
+                rgba(99,102,241,0.13),
+
+                inset 0 0 20px
+                rgba(99,102,241,0.04);
+
+        }
+
+
+        .option input {
+
+            width: 15px;
+
+            height: 15px;
+
+            flex-shrink: 0;
+
+            cursor: pointer;
+
+            accent-color:
+                #8b5cf6;
+
+        }
+
+
+        .option-letter {
+
+            width: 26px;
+
+            height: 26px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 7px;
+
+            color:
+                rgba(255,255,255,0.48);
+
+            background:
+                rgba(255,255,255,0.055);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            transition:
+                0.25s;
+
+        }
+
+
+        .option:has(input:checked)
+        .option-letter {
+
+            color: white;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 5px 14px
+                rgba(99,102,241,0.25);
+
+        }
+
+
+        .option-text {
+
+            color:
+                rgba(255,255,255,0.70);
+
+            font-size: 12px;
+
+            line-height: 1.45;
+
+            transition:
+                0.2s;
+
+        }
+
+
+        .option:has(input:checked)
+        .option-text {
+
+            color: white;
+
+        }
+
+
+        /* =========================================
+           BOTTOM ACTION AREA
+        ========================================= */
+
+        .bottom {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 25px;
+
+            margin-top: 25px;
+
+            padding:
+
+                22px 20px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.075);
+
+        }
+
+
+        .bottom-info {
+
+            color:
+                rgba(255,255,255,0.32);
+
+            font-size: 10px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .bottom-info strong {
+
+            display: block;
+
+            color:
+                rgba(255,255,255,0.68);
+
+            font-size: 12px;
+
+            margin-bottom: 2px;
+
+        }
+
+
+        .submit-btn {
+
+            position: relative;
+
+            overflow: hidden;
+
+            border: none;
+
+            cursor: pointer;
+
+            color: white;
+
+            min-width: 155px;
+
+            padding:
+                14px 24px;
+
+            border-radius: 11px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+
+                0 12px 28px
+                rgba(99,102,241,0.20);
+
+            transition:
+                0.25s;
+
+        }
+
+
+        .submit-btn::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: -100%;
+
+            width: 70%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.18),
+                    transparent
+                );
+
+            transform:
+                skewX(-20deg);
+
+            transition:
+                0.6s;
+
+        }
+
+
+        .submit-btn:hover::before {
+
+            left: 140%;
+
+        }
+
+
+        .submit-btn:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+
+                0 17px 38px
+                rgba(99,102,241,0.32);
+
+        }
+
+
+        .submit-btn:active {
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
+
+        .empty {
+
+            padding:
+                55px 20px;
+
+            text-align: center;
+
+            color:
+                rgba(255,255,255,0.40);
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px dashed
+                rgba(255,255,255,0.11);
+
+            font-size: 12px;
+
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 720px) {
+
+            body {
+
+                padding:
+                    18px 10px;
+
+            }
+
+
+            .container {
+
+                padding:
+                    23px 17px;
+
+                border-radius:
+                    23px;
+
+            }
+
+
+            .header {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .title-area {
+
+                width: 100%;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 24px;
+
+            }
+
+
+            .description {
+
+                max-width: 100%;
+
+            }
+
+
+            .back-btn {
+
+                width: 100%;
+
+            }
+
+
+            .options {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .bottom {
+
+                align-items:
+                    stretch;
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .submit-btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+
+        @media (max-width: 430px) {
+
+            body {
+
+                padding:
+                    12px 7px;
+
+            }
+
+
+            .container {
+
+                padding:
+                    19px 13px;
+
+            }
+
+
+            .title-area {
+
+                align-items:
+                    flex-start;
+
+            }
+
+
+            .test-icon {
+
+                width: 46px;
+
+                height: 46px;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 21px;
+
+            }
+
+
+            .question {
+
+                padding:
+                    20px 16px;
+
+            }
+
+
+            .question-text {
+
+                font-size: 14px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="orb orb-one"></div>
+
+    <div class="orb orb-two"></div>
+
+    <div class="orb orb-three"></div>
+
+
+    <div class="container">
+
+
+        <!-- =================================
+             TEST HEADER
+        ================================== -->
+
+        <div class="header">
+
+
+            <div class="title-area">
+
+
+                <div class="test-icon">
+
+                    ✓
+
+                </div>
+
+
+                <div>
+
+                    <h1>
+
+                        {{ test.title }}
+
+                    </h1>
+
+
+                    <p class="description">
+
+                        {{ test.description }}
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="back-btn"
+            >
+
+                ← Dashboard
+
+            </a>
+
+
+        </div>
+
+
+        <!-- =================================
+             PROGRESS
+        ================================== -->
+
+        {% if questions %}
+
+        <div class="progress-area">
+
+
+            <div class="progress-top">
+
+
+                <span class="progress-label">
+
+                    Test Progress
+
+                </span>
+
+
+                <span class="question-count">
+
+                    {{ questions|length }} Questions
+
+                </span>
+
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div class="progress-fill"></div>
+
+            </div>
+
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================
+             TEST FORM
+        ================================== -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            {% for question in questions %}
+
+
+                <div class="question">
+
+
+                    <div class="question-header">
+
+
+                        <span class="question-number">
+
+                            Q{{ forloop.counter }}
+
+                        </span>
+
+
+                        <span class="question-points">
+
+                            {{ question.points }} point
+
+                        </span>
+
+
+                    </div>
+
+
+                    <div class="question-text">
+
+                        {{ question.question_text }}
+
+                    </div>
+
+
+                    <div class="options">
+
+
+                        <!-- OPTION A -->
+
+                        <label class="option">
+
+                            <input
+                                type="radio"
+                                name="question_{{ question.id }}"
+                                value="A"
+                            >
+
+                            <span class="option-letter">
+
+                                A
+
+                            </span>
+
+                            <span class="option-text">
+
+                                {{ question.option_a }}
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- OPTION B -->
+
+                        <label class="option">
+
+                            <input
+                                type="radio"
+                                name="question_{{ question.id }}"
+                                value="B"
+                            >
+
+                            <span class="option-letter">
+
+                                B
+
+                            </span>
+
+                            <span class="option-text">
+
+                                {{ question.option_b }}
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- OPTION C -->
+
+                        <label class="option">
+
+                            <input
+                                type="radio"
+                                name="question_{{ question.id }}"
+                                value="C"
+                            >
+
+                            <span class="option-letter">
+
+                                C
+
+                            </span>
+
+                            <span class="option-text">
+
+                                {{ question.option_c }}
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- OPTION D -->
+
+                        <label class="option">
+
+                            <input
+                                type="radio"
+                                name="question_{{ question.id }}"
+                                value="D"
+                            >
+
+                            <span class="option-letter">
+
+                                D
+
+                            </span>
+
+                            <span class="option-text">
+
+                                {{ question.option_d }}
+
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+
+                </div>
+
+
+            {% empty %}
+
+
+                <div class="empty">
+
+                    No questions are available
+                    for this test.
+
+                </div>
+
+
+            {% endfor %}
+
+
+            {% if questions %}
+
+
+                <div class="bottom">
+
+
+                    <div class="bottom-info">
+
+                        <strong>
+
+                            Ready to submit?
+
+                        </strong>
+
+                        Select your answers and
+                        submit when you're finished.
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                    >
+
+                        Submit Test →
+
+                    </button>
+
+
+                </div>
+
+
+            {% endif %}
+
+
+        </form>
+
+
+    </div>
+
+
+</body>
+
+</html>
+

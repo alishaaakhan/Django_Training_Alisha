@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | Online Testing System</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: #ffffff;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 25px;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(99,102,241,0.20),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(139,92,246,0.17),
+                    transparent 30%
+                ),
+
+                #070b18;
+
+            overflow: hidden;
+
+        }
+
+
+        /* =====================================================
+           BACKGROUND GRID
+        ===================================================== */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.022) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.022) 1px,
+                    transparent 1px
+                );
+
+            background-size: 46px 46px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 100%
+                );
+
+            pointer-events: none;
+
+        }
+
+
+        /* =====================================================
+           AMBIENT LIGHTS
+        ===================================================== */
+
+        .ambient {
+
+            position: fixed;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            filter: blur(2px);
+
+            opacity: 0.7;
+
+            animation:
+                float 11s ease-in-out infinite;
+
+        }
+
+
+        .ambient-one {
+
+            width: 320px;
+
+            height: 320px;
+
+            top: -150px;
+
+            left: -110px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(99,102,241,0.25),
+                    transparent 70%
+                );
+
+        }
+
+
+        .ambient-two {
+
+            width: 400px;
+
+            height: 400px;
+
+            right: -180px;
+
+            bottom: -170px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(168,85,247,0.20),
+                    transparent 70%
+                );
+
+            animation-delay: -4s;
+
+        }
+
+
+        .ambient-three {
+
+            width: 220px;
+
+            height: 220px;
+
+            left: 42%;
+
+            top: 35%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(59,130,246,0.07),
+                    transparent 70%
+                );
+
+            animation-delay: -7s;
+
+        }
+
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform:
+                    translate3d(0,0,0)
+                    scale(1);
+            }
+
+            50% {
+                transform:
+                    translate3d(25px,-25px,0)
+                    scale(1.06);
+            }
+
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+        ===================================================== */
+
+        .login-card {
+
+            position: relative;
+
+            z-index: 5;
+
+            width: min(430px, 100%);
+
+            padding: 42px 38px 35px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.085),
+                    rgba(255,255,255,0.035)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.13);
+
+            backdrop-filter:
+                blur(28px);
+
+            -webkit-backdrop-filter:
+                blur(28px);
+
+            box-shadow:
+                0 35px 100px
+                rgba(0,0,0,0.48),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.07);
+
+            animation:
+                cardAppear 0.75s
+                cubic-bezier(.2,.8,.2,1)
+                forwards;
+
+        }
+
+
+        .login-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 12%;
+
+            width: 76%;
+
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(167,139,250,0.75),
+                    transparent
+                );
+
+            opacity: 0.8;
+
+        }
+
+
+        @keyframes cardAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.97);
+
+                filter:
+                    blur(4px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+                filter:
+                    blur(0);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .brand-mark {
+
+            position: relative;
+
+            width: 52px;
+
+            height: 52px;
+
+            margin:
+                0 auto 18px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 12px 32px
+                rgba(99,102,241,0.28);
+
+        }
+
+
+        .brand-mark::before {
+
+            content: "";
+
+            width: 17px;
+
+            height: 17px;
+
+            border:
+                2px solid
+                rgba(255,255,255,0.95);
+
+            border-radius: 50%;
+
+            position: absolute;
+
+            top: 11px;
+
+            left: 17px;
+
+        }
+
+
+        .brand-mark::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 20px;
+
+            height: 2px;
+
+            background:
+                rgba(255,255,255,0.95);
+
+            transform:
+                rotate(45deg);
+
+            bottom: 13px;
+
+            right: 11px;
+
+            border-radius: 10px;
+
+        }
+
+
+        .header h1 {
+
+            font-size: 29px;
+
+            line-height: 1.15;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .header p {
+
+            max-width: 290px;
+
+            margin: auto;
+
+            color:
+                rgba(255,255,255,0.43);
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
+
+        .error {
+
+            position: relative;
+
+            padding:
+                12px 14px;
+
+            margin-bottom: 20px;
+
+            border-radius: 11px;
+
+            color:
+                #fca5a5;
+
+            background:
+                rgba(239,68,68,0.08);
+
+            border:
+                1px solid
+                rgba(239,68,68,0.17);
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+            animation:
+                errorAppear 0.3s ease;
+
+        }
+
+
+        .error::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            top: 10px;
+
+            bottom: 10px;
+
+            width: 2px;
+
+            border-radius: 5px;
+
+            background:
+                #ef4444;
+
+        }
+
+
+        @keyframes errorAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(-5px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-group {
+
+            margin-bottom: 19px;
+
+        }
+
+
+        .form-label {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .form-label label {
+
+            color:
+                rgba(255,255,255,0.68);
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+
+        }
+
+
+        .input-symbol {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            width: 14px;
+
+            height: 14px;
+
+            border:
+                1.5px solid
+                rgba(255,255,255,0.30);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            transition:
+                border-color 0.25s,
+                opacity 0.25s;
+
+        }
+
+
+        .input-symbol.username::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 6px;
+
+            height: 3px;
+
+            border:
+                1.5px solid
+                rgba(255,255,255,0.30);
+
+            border-bottom: 0;
+
+            border-radius:
+                6px 6px 0 0;
+
+            left: 2.5px;
+
+            bottom: 1px;
+
+        }
+
+
+        .input-symbol.password {
+
+            border-radius: 4px;
+
+        }
+
+
+        .input-symbol.password::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 6px;
+
+            height: 5px;
+
+            border:
+                1.5px solid
+                rgba(255,255,255,0.30);
+
+            border-radius: 2px;
+
+            left: 2.5px;
+
+            top: -5px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding:
+                0 44px;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            background:
+                rgba(0,0,0,0.18);
+
+            color: white;
+
+            font-size: 12px;
+
+            transition:
+                border-color 0.25s,
+                background 0.25s,
+                box-shadow 0.25s,
+                transform 0.25s;
+
+        }
+
+
+        input::placeholder {
+
+            color:
+                rgba(255,255,255,0.22);
+
+        }
+
+
+        input:hover {
+
+            border-color:
+                rgba(255,255,255,0.15);
+
+        }
+
+
+        input:focus {
+
+            border-color:
+                rgba(129,140,248,0.65);
+
+            background:
+                rgba(0,0,0,0.24);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99,102,241,0.09);
+
+        }
+
+
+        input:focus + .input-symbol {
+
+            border-color:
+                rgba(165,180,252,0.8);
+
+        }
+
+
+        /* =====================================================
+           PASSWORD TOGGLE
+        ===================================================== */
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 13px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            width: 25px;
+
+            height: 25px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            opacity: 0.45;
+
+            transition:
+                opacity 0.2s;
+
+        }
+
+
+        .password-toggle:hover {
+
+            opacity: 0.85;
+
+        }
+
+
+        .eye {
+
+            position: relative;
+
+            width: 16px;
+
+            height: 10px;
+
+            border:
+                1.5px solid
+                rgba(255,255,255,0.75);
+
+            border-radius:
+                70% 20%;
+
+            transform:
+                rotate(-45deg);
+
+        }
+
+
+        .eye::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 4px;
+
+            height: 4px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.75);
+
+            left: 4.5px;
+
+            top: 1.5px;
+
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+        ===================================================== */
+
+        .login-btn {
+
+            position: relative;
+
+            overflow: hidden;
+
+            width: 100%;
+
+            height: 48px;
+
+            margin-top: 7px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.1px;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 12px 30px
+                rgba(99,102,241,0.22);
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s;
+
+        }
+
+
+        .login-btn::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: -110%;
+
+            width: 55%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.20),
+                    transparent
+                );
+
+            transform:
+                skewX(-20deg);
+
+            transition:
+                left 0.65s ease;
+
+        }
+
+
+        .login-btn:hover::before {
+
+            left: 140%;
+
+        }
+
+
+        .login-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 17px 40px
+                rgba(99,102,241,0.36);
+
+        }
+
+
+        .login-btn:active {
+
+            transform:
+                translateY(0)
+                scale(0.985);
+
+        }
+
+
+        .button-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+        }
+
+
+        .button-arrow {
+
+            transition:
+                transform 0.25s;
+
+        }
+
+
+        .login-btn:hover .button-arrow {
+
+            transform:
+                translateX(4px);
+
+        }
+
+
+        /* =====================================================
+           DIVIDER
+        ===================================================== */
+
+        .divider {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin:
+                24px 0 20px;
+
+            color:
+                rgba(255,255,255,0.20);
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+        }
+
+
+        .divider::before,
+        .divider::after {
+
+            content: "";
+
+            height: 1px;
+
+            flex: 1;
+
+            background:
+                rgba(255,255,255,0.08);
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .signup-text {
+
+            text-align: center;
+
+            color:
+                rgba(255,255,255,0.34);
+
+            font-size: 11px;
+
+        }
+
+
+        .signup-text a {
+
+            color:
+                #a5b4fc;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition:
+                color 0.2s;
+
+        }
+
+
+        .signup-text a:hover {
+
+            color:
+                #c4b5fd;
+
+        }
+
+
+        .home-link {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 17px;
+
+            color:
+                rgba(255,255,255,0.27);
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            transition:
+                color 0.2s,
+                gap 0.2s;
+
+        }
+
+
+        .home-link:hover {
+
+            color:
+                rgba(255,255,255,0.70);
+
+            gap: 10px;
+
+        }
+
+
+        .home-arrow {
+
+            transition:
+                transform 0.2s;
+
+        }
+
+
+        .home-link:hover .home-arrow {
+
+            transform:
+                translateX(-3px);
+
+        }
+
+
+        /* =====================================================
+           SECURITY NOTE
+        ===================================================== */
+
+        .security-note {
+
+            margin-top: 22px;
+
+            padding-top: 17px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.06);
+
+            text-align: center;
+
+            color:
+                rgba(255,255,255,0.20);
+
+            font-size: 9px;
+
+            letter-spacing: 0.2px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 500px) {
+
+            body {
+
+                padding: 18px;
+
+            }
+
+
+            .login-card {
+
+                padding:
+                    34px 24px 29px;
+
+                border-radius: 21px;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 26px;
+
+            }
+
+
+            .header p {
+
+                font-size: 11px;
+
+            }
+
+        }
+
+
+        @media (max-width: 360px) {
+
+            .login-card {
+
+                padding:
+                    29px 19px 25px;
+
+            }
+
+
+            .brand-mark {
+
+                width: 48px;
+
+                height: 48px;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 24px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="ambient ambient-one"></div>
+
+    <div class="ambient ambient-two"></div>
+
+    <div class="ambient ambient-three"></div>
+
+
+    <!-- LOGIN CARD -->
+
+    <div class="login-card">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+
+            <div class="brand-mark"></div>
+
+
+            <h1>
+                Welcome Back
+            </h1>
+
+
+            <p>
+                Sign in to continue to your
+                Online Testing System account.
+            </p>
+
+
+        </div>
+
+
+
+        <!-- ERROR -->
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+
+        <!-- LOGIN FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+
+                <div class="form-label">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                </div>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+
+
+                    <span
+                        class="input-symbol username"
+                    ></span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+
+                <div class="form-label">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                </div>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+
+                    <span
+                        class="input-symbol password"
+                    ></span>
+
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="passwordToggle"
+                        aria-label="Show password"
+                    >
+
+                        <span class="eye"></span>
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- LOGIN -->
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+
+                <span class="button-content">
+
+                    <span>
+                        Login to Account
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
+                </span>
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- DIVIDER -->
+
+        <div class="divider">
+            Account
+        </div>
+
+
+
+        <!-- SIGN UP -->
+
+        <div class="signup-text">
+
+            Don't have an account?
+
+            <a href="{% url 'signup' %}">
+                Create Account
+            </a>
+
+        </div>
+
+
+
+        <!-- HOME -->
+
+        <a
+            href="{% url 'home' %}"
+            class="home-link"
+        >
+
+            <span class="home-arrow">
+                ←
+            </span>
+
+            Back to Home
+
+        </a>
+
+
+
+        <!-- SECURITY -->
+
+        <div class="security-note">
+
+            Secure authentication •
+            Online Testing System
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         INTERACTION
+    ===================================================== -->
+
+    <script>
+
+
+        /* =================================================
+           PASSWORD VISIBILITY
+        ================================================= */
+
+        const password =
+            document.getElementById("password");
+
+
+        const passwordToggle =
+            document.getElementById("passwordToggle");
+
+
+        passwordToggle.addEventListener(
+            "click",
+            function () {
+
+                const isPassword =
+                    password.type === "password";
+
+
+                password.type =
+                    isPassword
+                        ? "text"
+                        : "password";
+
+
+                passwordToggle.setAttribute(
+                    "aria-label",
+                    isPassword
+                        ? "Hide password"
+                        : "Show password"
+                );
+
+            }
+        );
+
+
+
+        /* =================================================
+           BUTTON PRESS EFFECT
+        ================================================= */
+
+        const loginButton =
+            document.querySelector(".login-btn");
+
+
+        loginButton.addEventListener(
+            "mousedown",
+            function () {
+
+                loginButton.style.transform =
+                    "scale(0.985)";
+
+            }
+        );
+
+
+        loginButton.addEventListener(
+            "mouseup",
+            function () {
+
+                loginButton.style.transform =
+                    "";
+
+            }
+        );
+
+
+        loginButton.addEventListener(
+            "mouseleave",
+            function () {
+
+                loginButton.style.transform =
+                    "";
+
+            }
+        );
+
+
+        /* =================================================
+           INPUT INTERACTION
+        ================================================= */
+
+        document
+            .querySelectorAll("input")
+            .forEach(
+                function (input) {
+
+                    input.addEventListener(
+                        "focus",
+                        function () {
+
+                            this.parentElement
+                                .classList.add("focused");
+
+                        }
+                    );
+
+
+                    input.addEventListener(
+                        "blur",
+                        function () {
+
+                            this.parentElement
+                                .classList.remove("focused");
+
+                        }
+                    );
+
+                }
+            );
+
+    </script>
+
+
+</body>
+
+</html>
+

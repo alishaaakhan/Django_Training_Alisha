@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Login | Student Portal</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Inter, Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        overflow: hidden;
+
+        position: relative;
+
+        background:
+            radial-gradient(
+                circle at 15% 20%,
+                rgba(129, 140, 248, 0.28),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 85% 75%,
+                rgba(96, 165, 250, 0.25),
+                transparent 35%
+            ),
+            linear-gradient(
+                135deg,
+                #eef2ff,
+                #f8fafc,
+                #e0f2fe
+            );
+    }
+
+
+    /* Background blur elements */
+
+    .blur {
+        position: absolute;
+
+        border-radius: 50%;
+
+        filter: blur(75px);
+
+        opacity: 0.55;
+
+        animation: floating 8s ease-in-out infinite;
+    }
+
+    .blur-one {
+        width: 280px;
+        height: 280px;
+
+        background: #c4b5fd;
+
+        top: -90px;
+        left: -70px;
+    }
+
+    .blur-two {
+        width: 330px;
+        height: 330px;
+
+        background: #bae6fd;
+
+        bottom: -120px;
+        right: -100px;
+
+        animation-delay: 2s;
+    }
+
+    .blur-three {
+        width: 160px;
+        height: 160px;
+
+        background: #ddd6fe;
+
+        top: 15%;
+        right: 18%;
+
+        animation-delay: 4s;
+    }
+
+    @keyframes floating {
+
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+
+        50% {
+            transform: translate(20px, -20px);
+        }
+
+    }
+
+
+    /* Glass Login Card */
+
+    .container {
+        width: 90%;
+        max-width: 440px;
+
+        padding: 45px 42px;
+
+        position: relative;
+        z-index: 2;
+
+        text-align: center;
+
+        background: rgba(255, 255, 255, 0.48);
+
+        border: 1px solid rgba(255, 255, 255, 0.75);
+
+        border-radius: 25px;
+
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+
+        box-shadow:
+            0 25px 70px rgba(71, 85, 105, 0.16),
+            inset 0 1px 1px rgba(255, 255, 255, 0.85);
+
+        animation: cardEntry 0.7s ease;
+    }
+
+    @keyframes cardEntry {
+
+        from {
+            opacity: 0;
+            transform: translateY(25px) scale(0.97);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+    }
+
+
+    /* Small Brand Mark */
+
+    .brand-mark {
+        width: 52px;
+        height: 52px;
+
+        margin: 0 auto 22px;
+
+        border-radius: 15px;
+
+        position: relative;
+
+        background: linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+        box-shadow:
+            0 9px 22px rgba(99, 102, 241, 0.25);
+    }
+
+    .brand-mark::before {
+        content: "";
+
+        position: absolute;
+
+        width: 19px;
+        height: 19px;
+
+        border: 3px solid white;
+
+        border-radius: 6px;
+
+        top: 14px;
+        left: 14px;
+    }
+
+    .brand-mark::after {
+        content: "";
+
+        position: absolute;
+
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+
+        background: white;
+
+        right: 13px;
+        bottom: 13px;
+    }
+
+
+    /* Heading */
+
+    h1 {
+        color: #1e293b;
+
+        font-size: 32px;
+
+        font-weight: 700;
+
+        letter-spacing: -0.6px;
+
+        margin-bottom: 9px;
+    }
+
+    .subtitle {
+        color: #64748b;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+
+        margin-bottom: 30px;
+    }
+
+
+    /* Error Message */
+
+    .error {
+        padding: 11px 14px;
+
+        margin-bottom: 22px;
+
+        border-radius: 10px;
+
+        font-size: 13px;
+
+        color: #b91c1c;
+
+        background: rgba(254, 226, 226, 0.75);
+
+        border: 1px solid rgba(248, 113, 113, 0.25);
+    }
+
+
+    /* Form */
+
+    form {
+        text-align: left;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #334155;
+
+        font-size: 14px;
+
+        font-weight: 600;
+    }
+
+
+    /* Inputs */
+
+    input {
+        width: 100%;
+
+        padding: 13px 15px;
+
+        border-radius: 11px;
+
+        border: 1px solid rgba(148, 163, 184, 0.35);
+
+        outline: none;
+
+        color: #1e293b;
+
+        font-size: 14px;
+
+        background: rgba(255, 255, 255, 0.58);
+
+        transition:
+            border 0.25s ease,
+            box-shadow 0.25s ease,
+            background 0.25s ease;
+    }
+
+    input::placeholder {
+        color: #94a3b8;
+    }
+
+    input:hover {
+        background: rgba(255, 255, 255, 0.75);
+    }
+
+    input:focus {
+        background: rgba(255, 255, 255, 0.85);
+
+        border-color: rgba(99, 102, 241, 0.65);
+
+        box-shadow:
+            0 0 0 4px rgba(99, 102, 241, 0.10);
+    }
+
+
+    /* Login Button */
+
+    button {
+        width: 100%;
+
+        margin-top: 5px;
+
+        padding: 14px;
+
+        border: none;
+
+        border-radius: 11px;
+
+        cursor: pointer;
+
+        color: white;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        background: linear-gradient(
+            135deg,
+            #6366f1,
+            #7c3aed
+        );
+
+        box-shadow:
+            0 9px 22px rgba(99, 102, 241, 0.25);
+
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 14px 28px rgba(99, 102, 241, 0.32);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+
+    /* Bottom Link */
+
+    .bottom-link {
+        margin-top: 25px;
+
+        color: #64748b;
+
+        font-size: 13px;
+    }
+
+    .bottom-link a {
+        color: #6366f1;
+
+        text-decoration: none;
+
+        font-weight: 600;
+
+        margin-left: 4px;
+
+        transition: color 0.2s ease;
+    }
+
+    .bottom-link a:hover {
+        color: #4f46e5;
+
+        text-decoration: underline;
+    }
+
+
+    /* Mobile */
+
+    @media (max-width: 500px) {
+
+        .container {
+            padding: 38px 25px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="blur blur-one"></div>
+<div class="blur blur-two"></div>
+<div class="blur blur-three"></div>
+
+
+<div class="container">
+
+    <div class="brand-mark"></div>
+
+    <h1>
+        Welcome Back
+    </h1>
+
+    <p class="subtitle">
+        Sign in to continue to your student portal.
+    </p>
+
+
+    {% if errormsg %}
+
+        <div class="error">
+            {{ errormsg }}
+        </div>
+
+    {% endif %}
+
+
+    <form action="{% url 'loginvalidation' %}"
+          method="post">
+
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Enter your username"
+                autocomplete="username"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Sign In
+        </button>
+
+    </form>
+
+
+    <div class="bottom-link">
+
+        Don't have an account?
+
+        <a href="{% url 'signup' %}">
+            Create Account
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

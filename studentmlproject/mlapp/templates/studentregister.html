@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Registration</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'style.css' %}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            Student Registration
+        </h1>
+
+        <p class="subtitle">
+            Create your student account
+        </p>
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <form
+            action="{% url 'studentregister' %}"
+            method="POST"
+        >
+
+            {% csrf_token %}
+
+            <div class="input-group">
+
+                <label>
+                    Student ID
+                </label>
+
+                <input
+                    type="text"
+                    name="student_id"
+                    placeholder="Enter student ID"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Create password"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Branch
+                </label>
+
+                <input
+                    type="text"
+                    name="branch"
+                    placeholder="e.g. CSE"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Student Number
+                </label>
+
+                <input
+                    type="text"
+                    name="student_number"
+                    placeholder="Enter mobile number"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Student Email
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter email address"
+                    required
+                >
+
+            </div>
+
+
+            <input
+                type="submit"
+                value="Create Account"
+            >
+
+        </form>
+
+
+        <p class="bottom-text">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+        </p>
+
+    </div>
+
+</body>
+
+</html>

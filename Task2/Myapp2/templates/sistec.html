@@ -1,0 +1,256 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SISTec - Welcome</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(
+                135deg,
+                #141e30,
+                #243b55,
+                #4b0082
+            );
+
+            overflow: hidden;
+        }
+
+        /* Background circles */
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.5;
+        }
+
+        .circle1 {
+            width: 250px;
+            height: 250px;
+            background: #6c5ce7;
+            top: -80px;
+            left: -80px;
+        }
+
+        .circle2 {
+            width: 300px;
+            height: 300px;
+            background: #00cec9;
+            bottom: -120px;
+            right: -100px;
+        }
+
+        /* Main Card */
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            padding: 50px;
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.4);
+
+            color: white;
+
+            animation: appear 1s ease;
+        }
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* Logo */
+
+        .logo {
+            width: 100px;
+            height: 100px;
+
+            margin: auto;
+            margin-bottom: 20px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                135deg,
+                #6c5ce7,
+                #00cec9
+            );
+
+            font-size: 35px;
+            font-weight: bold;
+
+            box-shadow:
+                0 0 30px rgba(108, 92, 231, 0.8);
+
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+        }
+
+        /* Heading */
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+
+            background: linear-gradient(
+                90deg,
+                #ffffff,
+                #74b9ff,
+                #81ecec
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #dfe6e9;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #dfe6e9;
+            margin-bottom: 30px;
+        }
+
+        /* Button */
+
+        .btn {
+            display: inline-block;
+
+            padding: 15px 40px;
+
+            border-radius: 50px;
+
+            background: linear-gradient(
+                90deg,
+                #6c5ce7,
+                #00cec9
+            );
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            transition: all 0.3s ease;
+
+            box-shadow:
+                0 8px 25px rgba(0, 206, 201, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+
+            box-shadow:
+                0 15px 35px rgba(0, 206, 201, 0.6);
+        }
+
+        /* Small text */
+
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #b2bec3;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Background decorations -->
+
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+
+
+    <!-- Main Content -->
+
+    <div class="container">
+
+        <div class="logo">
+            S
+        </div>
+
+        <h1>Welcome to SISTec</h1>
+
+        <h2>Sagar Institute of Science & Technology</h2>
+
+        <p>
+            Welcome to SISTec — an institution focused on
+            innovation, technology, learning and excellence.
+            Explore the official website to discover more
+            about academics, admissions, departments and campus life.
+        </p>
+
+        <a
+            href="https://www.sistecgn.ac.in/"
+            target="_blank"
+            class="btn"
+        >
+            🚀 Visit SISTec
+        </a>
+
+        <div class="footer">
+            Click the button above to visit the official SISTec website.
+        </div>
+
+    </div>
+
+</body>
+</html>
+```

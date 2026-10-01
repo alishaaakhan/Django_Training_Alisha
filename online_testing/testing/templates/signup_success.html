@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Account Created | Online Testing System</title>
+
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 25px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            background:
+
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(99,102,241,0.32),
+                    transparent 32%
+                ),
+
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(168,85,247,0.28),
+                    transparent 32%
+                ),
+
+                #070b18;
+
+            overflow: hidden;
+
+        }
+
+
+        /* =====================================
+           BACKGROUND GRID
+        ===================================== */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+
+            pointer-events: none;
+
+        }
+
+
+        /* =====================================
+           GLOW
+        ===================================== */
+
+        .glow {
+
+            position: fixed;
+
+            width: 350px;
+
+            height: 350px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(99,102,241,0.14);
+
+            filter: blur(70px);
+
+            pointer-events: none;
+
+            animation:
+                float 8s ease-in-out infinite;
+
+        }
+
+
+        @keyframes float {
+
+            0%,
+            100% {
+
+                transform:
+                    translate(0,0);
+
+            }
+
+            50% {
+
+                transform:
+                    translate(30px,-25px);
+
+            }
+
+        }
+
+
+        /* =====================================
+           CARD
+        ===================================== */
+
+        .success-card {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: min(450px, 100%);
+
+            padding: 45px 38px;
+
+            text-align: center;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255,255,255,0.075);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.13);
+
+            backdrop-filter:
+                blur(25px);
+
+            -webkit-backdrop-filter:
+                blur(25px);
+
+            box-shadow:
+                0 30px 80px
+                rgba(0,0,0,0.45);
+
+            animation:
+                appear 0.7s ease;
+
+        }
+
+
+        @keyframes appear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.97);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =====================================
+           SUCCESS ICON
+        ===================================== */
+
+        .success-icon {
+
+            width: 72px;
+
+            height: 72px;
+
+            margin:
+                0 auto 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            color: #86efac;
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            background:
+                rgba(34,197,94,0.10);
+
+            border:
+                1px solid
+                rgba(134,239,172,0.25);
+
+            box-shadow:
+                0 0 35px
+                rgba(34,197,94,0.10);
+
+            animation:
+                pop 0.7s ease 0.2s both;
+
+        }
+
+
+        @keyframes pop {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    scale(0.5);
+
+            }
+
+            70% {
+
+                transform:
+                    scale(1.08);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =====================================
+           TEXT
+        ===================================== */
+
+        .success-card h1 {
+
+            font-size: 30px;
+
+            letter-spacing: -0.8px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .highlight {
+
+            background:
+                linear-gradient(
+                    110deg,
+                    #a5b4fc,
+                    #c4b5fd
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+
+        }
+
+
+        .message {
+
+            color:
+                rgba(255,255,255,0.48);
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        /* =====================================
+           LOGIN BUTTON
+        ===================================== */
+
+        .login-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            width: 100%;
+
+            height: 47px;
+
+            border-radius: 11px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 12px 30px
+                rgba(99,102,241,0.23);
+
+            transition:
+                0.25s;
+
+        }
+
+
+        .login-btn:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 17px 38px
+                rgba(99,102,241,0.38);
+
+        }
+
+
+        .arrow {
+
+            transition:
+                transform 0.25s;
+
+        }
+
+
+        .login-btn:hover .arrow {
+
+            transform:
+                translateX(4px);
+
+        }
+
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        .footer {
+
+            margin-top: 22px;
+
+            color:
+                rgba(255,255,255,0.25);
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================
+           MOBILE
+        ===================================== */
+
+        @media (max-width: 500px) {
+
+            .success-card {
+
+                padding:
+                    38px 25px;
+
+            }
+
+
+            .success-card h1 {
+
+                font-size: 26px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="glow"></div>
+
+
+    <div class="success-card">
+
+
+        <!-- SUCCESS ICON -->
+
+        <div class="success-icon">
+
+            ✓
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <h1>
+
+            Congratulations<span class="highlight">!</span>
+
+        </h1>
+
+
+        <p class="message">
+
+            Your account has been created successfully.
+            You can now log in and start taking
+            tests on the Online Testing System.
+
+        </p>
+
+
+        <!-- LOGIN -->
+
+        <a
+            href="{% url 'login' %}"
+            class="login-btn"
+        >
+
+            Continue to Login
+
+            <span class="arrow">
+
+                →
+
+            </span>
+
+        </a>
+
+
+        <div class="footer">
+
+            Online Testing System
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
+

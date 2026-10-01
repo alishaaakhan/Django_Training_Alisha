@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}AK | My Website{% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'mycss.css' %}">
+
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="background">
+
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="orb orb-three"></div>
+
+    </div>
+
+
+    <!-- Header -->
+
+    <header class="site-header">
+
+        <div class="logo">
+            AK
+        </div>
+
+        <h1>
+            My Website
+        </h1>
+
+        <p>
+            Explore <span>•</span> Discover <span>•</span> Experience
+        </p>
+
+    </header>
+
+
+    <!-- Navigation -->
+
+    <nav class="glass-nav">
+
+        <a href="{% url 'main' %}" class="nav-link">
+            <span>Home</span>
+        </a>
+
+        <a href="{% url 'about' %}" class="nav-link">
+            <span>About</span>
+        </a>
+
+        <a href="{% url 'info' %}" class="nav-link">
+            <span>Info</span>
+        </a>
+
+    </nav>
+
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer class="site-footer">
+
+        <p>
+            © 2026 Alisha Khan
+        </p>
+
+        <span>
+            Built with Django
+        </span>
+
+    </footer>
+
+</body>
+
+</html>

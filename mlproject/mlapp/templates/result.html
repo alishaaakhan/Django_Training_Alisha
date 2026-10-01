@@ -1,0 +1,99 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>This is result Page</h1>
+    </div>
+    <div>
+        <h1>The enter the value by user {{lis}}</h1>
+    </div>
+    <div>
+            <h1>The result is {{ans}}</h1>
+            <p>
+                Type of glass: (class attribute)
+            -- 1 building_windows_float_processed
+            -- 2 building_windows_non_float_processed
+            -- 3 vehicle_windows_float_processed
+            -- 4 vehicle_windows_non_float_processed (none in this database)
+            -- 5 containers
+            -- 6 tableware
+            -- 7 headlamps
+        </p>
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+{% load static %}5
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction Result</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Prediction Result</h1>
+
+        <p class="subtitle">
+            Your glass classification has been generated successfully.
+        </p>
+
+        <div class="result-box">
+
+            <p class="values">
+                Entered Values
+            </p>
+
+            <p class="values">
+                {{ lis }}
+            </p>
+
+            <div class="result-value">
+                {{ glass_type }}
+            </div>
+
+            <p class="subtitle">
+                Predicted Glass Type
+            </p>
+
+        </div>
+
+        <div class="glass-types">
+
+            <h3>Glass Type Classification</h3>
+
+            <p>
+                1 — Building Windows Float Processed<br>
+                2 — Building Windows Non-Float Processed<br>
+                3 — Vehicle Windows Float Processed<br>
+                4 — Vehicle Windows Non-Float Processed<br>
+                5 — Containers<br>
+                6 — Tableware<br>
+                7 — Headlamps
+            </p>
+
+        </div>
+
+        <a href="{% url 'home' %}" class="back-btn">
+            ← Predict Again
+        </a>
+
+    </div>
+
+</body>
+
+</html>

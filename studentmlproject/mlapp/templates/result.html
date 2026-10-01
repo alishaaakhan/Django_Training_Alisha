@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Placement Result</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'style.css' %}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container result-container">
+
+        <div class="icon">
+            🎯
+        </div>
+
+
+        <h1>
+            Placement Prediction Result
+        </h1>
+
+
+        <div class="result-box">
+
+            <div class="result-value">
+
+                {{ result_message }}
+
+            </div>
+
+
+            <p class="result-description">
+
+                {{ result_description }}
+
+            </p>
+
+        </div>
+
+
+        <div class="prediction-details">
+
+            <h3>
+                Prediction Details
+            </h3>
+
+            <p>
+                CGPA:
+                <strong>{{ lis.0 }}</strong>
+            </p>
+
+            <p>
+                IQ:
+                <strong>{{ lis.1 }}</strong>
+            </p>
+
+            <p>
+                Profile Score:
+                <strong>{{ lis.2 }}</strong>
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'prediction' %}"
+            class="back-btn"
+        >
+            ← Predict Again
+        </a>
+
+
+        <a
+            href="{% url 'home' %}"
+            class="back-btn"
+        >
+            Back to Home
+        </a>
+
+    </div>
+
+</body>
+
+</html>

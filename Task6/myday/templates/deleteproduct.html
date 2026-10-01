@@ -1,0 +1,248 @@
+<DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Deleted</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(239, 68, 68, 0.25),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(99, 102, 241, 0.25),
+                    transparent 30%
+                ),
+                #070b18;
+
+            padding: 20px;
+
+        }
+
+
+        .card {
+
+            width: 450px;
+
+            padding: 45px 40px;
+
+            text-align: center;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255, 255, 255, 0.09);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.16);
+
+            backdrop-filter: blur(25px);
+
+            -webkit-backdrop-filter: blur(25px);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0, 0, 0, 0.4);
+
+        }
+
+
+        .icon {
+
+            width: 68px;
+
+            height: 68px;
+
+            margin: 0 auto 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background:
+                rgba(239, 68, 68, 0.12);
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.25);
+
+            color: #f87171;
+
+            font-size: 30px;
+
+        }
+
+
+        h1 {
+
+            font-size: 28px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .message {
+
+            color:
+                rgba(255, 255, 255, 0.5);
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .success-box {
+
+            padding: 15px;
+
+            margin-bottom: 25px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.18);
+
+            color: #fca5a5;
+
+            font-size: 13px;
+
+        }
+
+
+        .btn {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 11px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dc2626,
+                    #ef4444
+                );
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+        }
+
+
+        .btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(239, 68, 68, 0.3);
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="card">
+
+
+        <div class="icon">
+            ✓
+        </div>
+
+
+        <h1>
+            Product Deleted
+        </h1>
+
+
+        <p class="message">
+
+            The selected product record has been
+            successfully removed from the database.
+
+        </p>
+
+
+        <div class="success-box">
+
+            Product deleted successfully!
+
+        </div>
+
+
+        <a
+            href="{% url 'home' %}"
+            class="btn"
+        >
+
+            ← Back to Dashboard
+
+        </a>
+
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Placement Prediction</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'style.css' %}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container home-container">
+
+        <div class="icon">
+            🎓
+        </div>
+
+        <h1>
+            Student Placement Prediction
+        </h1>
+
+        <p class="subtitle">
+            Predict your placement status using
+            Machine Learning.
+        </p>
+
+        <div class="home-buttons">
+
+            <a
+                href="{% url 'login' %}"
+                class="btn primary-btn"
+            >
+                Login
+            </a>
+
+            <a
+                href="{% url 'studentregister' %}"
+                class="btn secondary-btn"
+            >
+                Register
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+{% extends "master.html" %}
+
+{% load static %}
+
+
+{% block title %}
+Beautiful Places | AK
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-container">
+
+    <div class="page-heading">
+
+        <span class="section-badge">
+            TRAVEL
+        </span>
+
+        <h2>
+            Beautiful Places
+        </h2>
+
+        <p>
+            Explore some beautiful destinations across India.
+        </p>
+
+    </div>
+
+
+    <div class="product-grid">
+
+
+        <div class="product-card">
+
+            <div class="image-wrapper">
+                <img src="{% static 'bhopal.jpg' %}" alt="Bhopal">
+                <span class="card-number">01</span>
+            </div>
+
+            <div class="card-content">
+                <h3>Bhopal</h3>
+                <p>The city of lakes, surrounded by history and natural beauty.</p>
+                <span class="explore">Explore →</span>
+            </div>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <div class="image-wrapper">
+                <img src="{% static 'delhi.jpg' %}" alt="Delhi">
+                <span class="card-number">02</span>
+            </div>
+
+            <div class="card-content">
+                <h3>Delhi</h3>
+                <p>A vibrant city known for its history, culture and landmarks.</p>
+                <span class="explore">Explore →</span>
+            </div>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <div class="image-wrapper">
+                <img src="{% static 'mumbai.webp' %}" alt="Mumbai">
+                <span class="card-number">03</span>
+            </div>
+
+            <div class="card-content">
+                <h3>Mumbai</h3>
+                <p>A dynamic metropolitan city famous for its coastline and energy.</p>
+                <span class="explore">Explore →</span>
+            </div>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <div class="image-wrapper">
+                <img src="{% static 'jaipur.jpg' %}" alt="Jaipur">
+                <span class="card-number">04</span>
+            </div>
+
+            <div class="card-content">
+                <h3>Jaipur</h3>
+                <p>The Pink City, known for its royal architecture and heritage.</p>
+                <span class="explore">Explore →</span>
+            </div>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <div class="image-wrapper">
+                <img src="{% static 'goa.jpg' %}" alt="Goa">
+                <span class="card-number">05</span>
+            </div>
+
+            <div class="card-content">
+                <h3>Goa</h3>
+                <p>A coastal destination known for beaches, culture and sunsets.</p>
+                <span class="explore">Explore →</span>
+            </div>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <div class="image-wrapper">
+                <img src="{% static 'manali.webp' %}" alt="Manali">
+                <span class="card-number">06</span>
+            </div>
+
+            <div class="card-content">
+                <h3>Manali</h3>
+                <p>A mountain destination surrounded by scenic Himalayan landscapes.</p>
+                <span class="explore">Explore →</span>
+            </div>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <div class="image-wrapper">
+                <img src="{% static 'agra.jpg' %}" alt="Agra">
+                <span class="card-number">07</span>
+            </div>
+
+            <div class="card-content">
+                <h3>Agra</h3>
+                <p>A historic destination famous for iconic Mughal architecture.</p>
+                <span class="explore">Explore →</span>
+            </div>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <div class="image-wrapper">
+                <img src="{% static 'kashmir.jpg' %}" alt="Kashmir">
+                <span class="card-number">08</span>
+            </div>
+
+            <div class="card-content">
+                <h3>Kashmir</h3>
+                <p>A scenic region known for mountains, lakes and natural beauty.</p>
+                <span class="explore">Explore →</span>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

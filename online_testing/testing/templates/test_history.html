@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Test History | Online Testing System</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            padding: 35px 20px;
+
+            background:
+
+                radial-gradient(
+                    circle at 8% 8%,
+                    rgba(99,102,241,0.34),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 92% 88%,
+                    rgba(168,85,247,0.28),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgba(59,130,246,0.08),
+                    transparent 34%
+                ),
+
+                #070b18;
+
+            overflow-x: hidden;
+
+        }
+
+
+        /* =========================================
+           BACKGROUND GRID
+        ========================================= */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.022) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.022) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+
+            pointer-events: none;
+
+            z-index: 0;
+
+        }
+
+
+        /* =========================================
+           BACKGROUND ORBS
+        ========================================= */
+
+        .orb {
+
+            position: fixed;
+
+            border-radius: 50%;
+
+            filter: blur(18px);
+
+            pointer-events: none;
+
+            z-index: 0;
+
+            animation:
+                float 11s ease-in-out infinite;
+
+        }
+
+
+        .orb-one {
+
+            width: 330px;
+
+            height: 330px;
+
+            top: -120px;
+
+            left: -110px;
+
+            background:
+                rgba(99,102,241,0.14);
+
+        }
+
+
+        .orb-two {
+
+            width: 400px;
+
+            height: 400px;
+
+            right: -170px;
+
+            bottom: -170px;
+
+            background:
+                rgba(168,85,247,0.13);
+
+            animation-delay: -5s;
+
+        }
+
+
+        @keyframes float {
+
+            0%,
+            100% {
+
+                transform:
+                    translate(0,0);
+
+            }
+
+            50% {
+
+                transform:
+                    translate(28px,-24px);
+
+            }
+
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .container {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: min(1180px, 100%);
+
+            margin: auto;
+
+            padding: 38px;
+
+            border-radius: 28px;
+
+            background:
+                rgba(255,255,255,0.068);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.13);
+
+            backdrop-filter:
+                blur(30px);
+
+            -webkit-backdrop-filter:
+                blur(30px);
+
+            box-shadow:
+
+                0 35px 100px
+                rgba(0,0,0,0.52),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.09);
+
+            animation:
+                pageEnter 0.7s ease;
+
+        }
+
+
+        @keyframes pageEnter {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(22px)
+                    scale(0.985);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 25px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .heading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .heading-icon {
+
+            width: 54px;
+
+            height: 54px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 16px;
+
+            font-size: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 14px 32px
+                rgba(99,102,241,0.28);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+        }
+
+
+        .heading h1 {
+
+            font-size: 31px;
+
+            line-height: 1.15;
+
+            letter-spacing: -0.9px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .heading p {
+
+            color:
+                rgba(255,255,255,0.43);
+
+            font-size: 12px;
+
+            letter-spacing: 0.1px;
+
+        }
+
+
+        /* =========================================
+           HEADER BUTTONS
+        ========================================= */
+
+        .buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            text-decoration: none;
+
+            padding:
+                11px 17px;
+
+            border-radius: 11px;
+
+            font-size: 11px;
+
+            font-weight: 500;
+
+            transition:
+                all 0.25s ease;
+
+            white-space: nowrap;
+
+        }
+
+
+        .home-btn {
+
+            color:
+                rgba(255,255,255,0.72);
+
+            background:
+                rgba(255,255,255,0.055);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+        }
+
+
+        .logout-btn {
+
+            color:
+                #fecaca;
+
+            background:
+                rgba(239,68,68,0.08);
+
+            border:
+                1px solid
+                rgba(239,68,68,0.17);
+
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        .home-btn:hover {
+
+            color: white;
+
+            background:
+                rgba(255,255,255,0.105);
+
+            border-color:
+                rgba(255,255,255,0.17);
+
+            box-shadow:
+                0 9px 22px
+                rgba(0,0,0,0.20);
+
+        }
+
+
+        .logout-btn:hover {
+
+            color: white;
+
+            background:
+                rgba(239,68,68,0.16);
+
+            border-color:
+                rgba(239,68,68,0.28);
+
+            box-shadow:
+                0 9px 22px
+                rgba(239,68,68,0.08);
+
+        }
+
+
+        /* =========================================
+           REPORT CARD
+        ========================================= */
+
+        .report-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 28px;
+
+            margin-bottom: 22px;
+
+            border-radius: 21px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    rgba(99,102,241,0.13),
+                    rgba(168,85,247,0.075)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.105);
+
+            box-shadow:
+
+                inset 0 1px 0
+                rgba(255,255,255,0.055),
+
+                0 12px 35px
+                rgba(0,0,0,0.10);
+
+        }
+
+
+        .report-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 200px;
+
+            height: 200px;
+
+            right: -100px;
+
+            top: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(129,140,248,0.09);
+
+            filter: blur(3px);
+
+        }
+
+
+        .report-top {
+
+            position: relative;
+
+            z-index: 1;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .report-card h2 {
+
+            font-size: 20px;
+
+            margin-bottom: 9px;
+
+            letter-spacing: -0.3px;
+
+        }
+
+
+        .report-card p {
+
+            color:
+                rgba(255,255,255,0.50);
+
+            font-size: 12px;
+
+            line-height: 1.85;
+
+        }
+
+
+        .student-name {
+
+            color:
+                #c4b5fd;
+
+            font-weight: 600;
+
+        }
+
+
+        .report-card strong {
+
+            color: white;
+
+            font-weight: 600;
+
+        }
+
+
+        .report-icon {
+
+            width: 54px;
+
+            height: 54px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 16px;
+
+            color:
+                #86efac;
+
+            font-size: 21px;
+
+            background:
+                rgba(134,239,172,0.065);
+
+            border:
+                1px solid
+                rgba(134,239,172,0.13);
+
+            box-shadow:
+                0 10px 28px
+                rgba(134,239,172,0.05);
+
+        }
+
+
+        /* =========================================
+           SUMMARY
+        ========================================= */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 13px;
+
+            margin-bottom: 32px;
+
+        }
+
+
+        .summary-box {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 21px;
+
+            min-height: 108px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,0.043);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.075);
+
+            transition:
+                all 0.28s ease;
+
+        }
+
+
+        .summary-box::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 85px;
+
+            height: 85px;
+
+            right: -42px;
+
+            bottom: -42px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            transition:
+                0.3s;
+
+        }
+
+
+        .summary-box:hover {
+
+            transform:
+                translateY(-5px);
+
+            background:
+                rgba(255,255,255,0.07);
+
+            border-color:
+                rgba(165,180,252,0.18);
+
+            box-shadow:
+                0 16px 35px
+                rgba(0,0,0,0.22);
+
+        }
+
+
+        .summary-box:hover::before {
+
+            transform:
+                scale(1.3);
+
+        }
+
+
+        .summary-number {
+
+            position: relative;
+
+            z-index: 1;
+
+            font-size: 27px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+
+            letter-spacing: -0.5px;
+
+        }
+
+
+        .summary-label {
+
+            position: relative;
+
+            z-index: 1;
+
+            color:
+                rgba(255,255,255,0.39);
+
+            font-size: 10px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .purple {
+
+            color:
+                #c4b5fd;
+
+        }
+
+
+        .blue {
+
+            color:
+                #93c5fd;
+
+        }
+
+
+        .green {
+
+            color:
+                #86efac;
+
+        }
+
+
+        .red {
+
+            color:
+                #fca5a5;
+
+        }
+
+
+        /* =========================================
+           SECTION HEADER
+        ========================================= */
+
+        .section-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .section-title {
+
+            font-size: 19px;
+
+            font-weight: 600;
+
+            letter-spacing: -0.3px;
+
+        }
+
+
+        .section-count {
+
+            padding:
+                6px 11px;
+
+            border-radius: 8px;
+
+            color:
+                rgba(255,255,255,0.40);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
+
+            font-size: 10px;
+
+        }
+
+
+        /* =========================================
+           TABLE
+        ========================================= */
+
+        .table-box {
+
+            overflow-x: auto;
+
+            border-radius: 18px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            background:
+                rgba(255,255,255,0.022);
+
+            box-shadow:
+                0 14px 40px
+                rgba(0,0,0,0.13);
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            min-width: 850px;
+
+            border-collapse: collapse;
+
+        }
+
+
+        th {
+
+            padding:
+                17px 18px;
+
+            text-align: left;
+
+            background:
+                rgba(15,21,42,0.92);
+
+            color:
+                rgba(255,255,255,0.43);
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.95px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+        }
+
+
+        td {
+
+            padding:
+                18px;
+
+            background:
+                rgba(255,255,255,0.014);
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.052);
+
+            color:
+                rgba(255,255,255,0.66);
+
+            font-size: 12px;
+
+            transition:
+                all 0.22s ease;
+
+            white-space: nowrap;
+
+        }
+
+
+        tbody tr {
+
+            transition:
+                all 0.22s ease;
+
+        }
+
+
+        tbody tr:hover {
+
+            transform:
+                translateX(2px);
+
+        }
+
+
+        tbody tr:hover td {
+
+            background:
+                rgba(255,255,255,0.058);
+
+            color: white;
+
+        }
+
+
+        .test-name {
+
+            color:
+                #c4b5fd;
+
+            font-weight: 600;
+
+        }
+
+
+        .date {
+
+            color:
+                rgba(255,255,255,0.48);
+
+        }
+
+
+        .attempt {
+
+            color:
+                #c4b5fd;
+
+            font-weight: 600;
+
+        }
+
+
+        .total {
+
+            color:
+                #93c5fd;
+
+            font-weight: 600;
+
+        }
+
+
+        .right {
+
+            color:
+                #86efac;
+
+            font-weight: 600;
+
+        }
+
+
+        .wrong {
+
+            color:
+                #fca5a5;
+
+            font-weight: 600;
+
+        }
+
+
+        .points {
+
+            color:
+                #93c5fd;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
+
+        .empty {
+
+            padding:
+                68px 20px;
+
+            text-align: center;
+
+        }
+
+
+        .empty-icon {
+
+            width: 62px;
+
+            height: 62px;
+
+            margin:
+                0 auto 18px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-radius: 17px;
+
+            font-size: 24px;
+
+            color:
+                rgba(255,255,255,0.50);
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.15);
+
+        }
+
+
+        .empty h3 {
+
+            font-size: 17px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .empty p {
+
+            color:
+                rgba(255,255,255,0.36);
+
+            font-size: 12px;
+
+        }
+
+
+        .empty-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 20px;
+
+            padding:
+                10px 17px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 9px 25px
+                rgba(99,102,241,0.18);
+
+            transition:
+                all 0.25s ease;
+
+        }
+
+
+        .empty-link:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 13px 30px
+                rgba(99,102,241,0.30);
+
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-top: 22px;
+
+            padding-top: 18px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.055);
+
+            color:
+                rgba(255,255,255,0.25);
+
+            font-size: 9px;
+
+            letter-spacing: 0.35px;
+
+        }
+
+
+        .footer-made {
+
+            color:
+                rgba(196,181,253,0.60);
+
+            font-weight: 500;
+
+            transition:
+                0.25s;
+
+        }
+
+
+        .footer-made:hover {
+
+            color:
+                #c4b5fd;
+
+        }
+
+
+        /* =========================================
+           SCROLLBAR
+        ========================================= */
+
+        .table-box::-webkit-scrollbar {
+
+            height: 7px;
+
+        }
+
+
+        .table-box::-webkit-scrollbar-track {
+
+            background:
+                rgba(255,255,255,0.025);
+
+        }
+
+
+        .table-box::-webkit-scrollbar-thumb {
+
+            border-radius: 20px;
+
+            background:
+                rgba(129,140,248,0.25);
+
+        }
+
+
+        .table-box::-webkit-scrollbar-thumb:hover {
+
+            background:
+                rgba(129,140,248,0.42);
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 950px) {
+
+            .summary {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            body {
+
+                padding:
+                    20px 13px;
+
+            }
+
+
+            .container {
+
+                padding:
+                    25px 20px;
+
+                border-radius:
+                    22px;
+
+            }
+
+
+            .top {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+            }
+
+
+            .heading {
+
+                width: 100%;
+
+            }
+
+
+            .buttons {
+
+                width: 100%;
+
+            }
+
+
+            .btn {
+
+                flex: 1;
+
+            }
+
+
+            .report-top {
+
+                align-items:
+                    flex-start;
+
+            }
+
+
+            .summary {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .footer {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    center;
+
+                gap: 8px;
+
+            }
+
+        }
+
+
+        @media (max-width: 420px) {
+
+            .summary {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .heading h1 {
+
+                font-size: 27px;
+
+            }
+
+
+            .heading-icon {
+
+                width: 47px;
+
+                height: 47px;
+
+            }
+
+
+            .report-card {
+
+                padding:
+                    21px;
+
+            }
+
+
+            .footer {
+
+                text-align: center;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="orb orb-one"></div>
+
+    <div class="orb orb-two"></div>
+
+
+    <div class="container">
+
+
+        <!-- HEADER -->
+
+        <div class="top">
+
+
+            <div class="heading">
+
+
+                <div class="heading-icon">
+
+                    ◴
+
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        Test History
+                    </h1>
+
+
+                    <p>
+                        Track your complete test performance
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="buttons">
+
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="btn home-btn"
+                >
+
+                    ←
+
+                    Dashboard
+
+                </a>
+
+
+                <a
+                    href="{% url 'logout' %}"
+                    class="btn logout-btn"
+                >
+
+                    ↪
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- REPORT CARD -->
+
+        <div class="report-card">
+
+
+            <div class="report-top">
+
+
+                <div>
+
+                    <h2>
+                        Your Report Card
+                    </h2>
+
+
+                    <p>
+
+                        Hi,
+
+                        <span class="student-name">
+
+                            {{ student.first_name|default:student.username }}
+
+                        </span>,
+
+                        you have attempted
+
+                        <strong>
+                            {{ total_tests }}
+                        </strong>
+
+                        test{{ total_tests|pluralize }}
+
+                        in total and scored
+
+                        <strong>
+                            {{ total_points }}
+                        </strong>
+
+                        point{{ total_points|pluralize }}.
+
+                    </p>
+
+                </div>
+
+
+                <div class="report-icon">
+
+                    ✓
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- SUMMARY CARDS -->
+
+        <div class="summary">
+
+
+            <div class="summary-box">
+
+                <div class="summary-number purple">
+
+                    {{ total_tests }}
+
+                </div>
+
+
+                <div class="summary-label">
+
+                    Tests Attempted
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <div class="summary-number blue">
+
+                    {{ total_questions }}
+
+                </div>
+
+
+                <div class="summary-label">
+
+                    Questions Attempted
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <div class="summary-number green">
+
+                    {{ total_correct }}
+
+                </div>
+
+
+                <div class="summary-label">
+
+                    Correct Answers
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <div class="summary-number red">
+
+                    {{ total_wrong }}
+
+                </div>
+
+
+                <div class="summary-label">
+
+                    Wrong Answers
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <div class="summary-number blue">
+
+                    {{ total_points }}
+
+                </div>
+
+
+                <div class="summary-label">
+
+                    Total Points
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ATTEMPT HISTORY -->
+
+        <div class="section-header">
+
+
+            <div class="section-title">
+
+                Attempt History
+
+            </div>
+
+
+            <div class="section-count">
+
+                {{ total_tests }}
+
+                attempt{{ total_tests|pluralize }}
+
+            </div>
+
+
+        </div>
+
+
+        <div class="table-box">
+
+
+            {% if history %}
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Test
+                        </th>
+
+                        <th>
+                            Date & Time
+                        </th>
+
+                        <th>
+                            Attempt
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                        <th>
+                            Right
+                        </th>
+
+                        <th>
+                            Wrong
+                        </th>
+
+                        <th>
+                            Points
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for item in history %}
+
+
+                    <tr>
+
+
+                        <td class="test-name">
+
+                            {{ item.test.title }}
+
+                        </td>
+
+
+                        <td class="date">
+
+                            {{ item.attempted_at|date:"d M Y, h:i A" }}
+
+                        </td>
+
+
+                        <td class="attempt">
+
+                            #{{ item.attempt_number }}
+
+                        </td>
+
+
+                        <td class="total">
+
+                            {{ item.total_questions }}
+
+                        </td>
+
+
+                        <td class="right">
+
+                            {{ item.correct }}
+
+                        </td>
+
+
+                        <td class="wrong">
+
+                            {{ item.wrong }}
+
+                        </td>
+
+
+                        <td class="points">
+
+                            {{ item.points }}
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+            {% else %}
+
+
+            <div class="empty">
+
+
+                <div class="empty-icon">
+
+                    ◇
+
+                </div>
+
+
+                <h3>
+
+                    No test history yet
+
+                </h3>
+
+
+                <p>
+
+                    You haven't attempted any test yet.
+
+                </p>
+
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="empty-link"
+                >
+
+                    Explore Tests
+
+                    →
+
+                </a>
+
+
+            </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            <span>
+                Online Testing System
+            </span>
+
+            <span class="footer-made">
+                Made by Alisha Khan ♥
+            </span>
+
+            <span>
+                Test Performance Report
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

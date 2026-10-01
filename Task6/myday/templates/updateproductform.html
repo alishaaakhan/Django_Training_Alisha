@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Update Product</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            color: white;
+
+            padding: 25px;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(245,158,11,0.25),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(99,102,241,0.3),
+                    transparent 30%
+                ),
+                #070b18;
+
+        }
+
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+
+            pointer-events: none;
+
+        }
+
+
+        .card {
+
+            width: min(500px, 100%);
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            backdrop-filter: blur(25px);
+
+            -webkit-backdrop-filter: blur(25px);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.45);
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 32px;
+
+        }
+
+
+        .icon {
+
+            width: 60px;
+
+            height: 60px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-radius: 17px;
+
+            background:
+                rgba(245,158,11,0.12);
+
+            border:
+                1px solid
+                rgba(245,158,11,0.25);
+
+            color: #fbbf24;
+
+            font-size: 27px;
+
+        }
+
+
+        h1 {
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .subtitle {
+
+            color:
+                rgba(255,255,255,0.42);
+
+            font-size: 13px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color:
+                rgba(255,255,255,0.65);
+
+            font-size: 12px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            background:
+                rgba(255,255,255,0.055);
+
+            color: white;
+
+            font-size: 13px;
+
+            transition: 0.3s;
+
+        }
+
+
+        input:focus {
+
+            border-color:
+                rgba(245,158,11,0.55);
+
+            background:
+                rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(245,158,11,0.08);
+
+        }
+
+
+        input::placeholder {
+
+            color:
+                rgba(255,255,255,0.25);
+
+        }
+
+
+        .actions {
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 28px;
+
+        }
+
+
+        .btn {
+
+            flex: 1;
+
+            padding: 14px;
+
+            border-radius: 11px;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+            cursor: pointer;
+
+        }
+
+
+        .cancel {
+
+            color:
+                rgba(255,255,255,0.65);
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.1);
+
+        }
+
+
+        .cancel:hover {
+
+            background:
+                rgba(255,255,255,0.1);
+
+            color: white;
+
+        }
+
+
+        .update {
+
+            border: none;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d97706,
+                    #f59e0b
+                );
+
+        }
+
+
+        .update:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(245,158,11,0.3);
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .card {
+
+                padding: 28px 22px;
+
+            }
+
+
+            .actions {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="card">
+
+
+        <div class="header">
+
+            <div class="icon">
+                ✎
+            </div>
+
+
+            <h1>
+                Update Product
+            </h1>
+
+
+            <p class="subtitle">
+                Edit the product details and save your changes
+            </p>
+
+        </div>
+
+
+        <form
+            action="{% url 'update' %}"
+            method="post"
+        >
+
+            {% csrf_token %}
+
+
+            <input
+                type="hidden"
+                name="id"
+                value="{{ product.id }}"
+            >
+
+
+            <div class="form-group">
+
+                <label for="p_name">
+                    Product Name
+                </label>
+
+                <input
+                    type="text"
+                    name="p_name"
+                    id="p_name"
+                    value="{{ product.p_name }}"
+                    placeholder="Enter product name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="p_price">
+                    Product Price
+                </label>
+
+                <input
+                    type="number"
+                    name="p_price"
+                    id="p_price"
+                    value="{{ product.p_price }}"
+                    placeholder="Enter product price"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="p_offer">
+                    Product Offer
+                </label>
+
+                <input
+                    type="text"
+                    name="p_offer"
+                    id="p_offer"
+                    value="{{ product.p_offer }}"
+                    placeholder="Example: 10%"
+                    required
+                >
+
+            </div>
+
+
+            <div class="actions">
+
+
+                <a
+                    href="{% url 'read' %}"
+                    class="btn cancel"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn update"
+                >
+                    Update Product
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</body>
+
+</html>
+

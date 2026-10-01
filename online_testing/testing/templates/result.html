@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Test Result | Online Testing System</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 35px 20px;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 15%,
+                    rgba(99,102,241,0.34),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 85%,
+                    rgba(168,85,247,0.28),
+                    transparent 32%
+                ),
+
+                #070b18;
+
+            overflow-x: hidden;
+
+        }
+
+
+        /* =========================================
+           BACKGROUND GRID
+        ========================================= */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+
+            pointer-events: none;
+
+            z-index: 0;
+
+        }
+
+
+        /* =========================================
+           FLOATING ORBS
+        ========================================= */
+
+        .orb {
+
+            position: fixed;
+
+            border-radius: 50%;
+
+            filter: blur(12px);
+
+            pointer-events: none;
+
+            z-index: 0;
+
+            animation:
+                float 10s ease-in-out infinite;
+
+        }
+
+
+        .orb-one {
+
+            width: 300px;
+
+            height: 300px;
+
+            top: -120px;
+
+            left: -100px;
+
+            background:
+                rgba(99,102,241,0.14);
+
+        }
+
+
+        .orb-two {
+
+            width: 360px;
+
+            height: 360px;
+
+            right: -140px;
+
+            bottom: -130px;
+
+            background:
+                rgba(168,85,247,0.13);
+
+            animation-delay: -4s;
+
+        }
+
+
+        @keyframes float {
+
+            0%,
+            100% {
+
+                transform:
+                    translate(0,0);
+
+            }
+
+            50% {
+
+                transform:
+                    translate(25px,-22px);
+
+            }
+
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .container {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: min(720px, 100%);
+
+            padding: 40px;
+
+            border-radius: 28px;
+
+            text-align: center;
+
+            background:
+                rgba(255,255,255,0.075);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.14);
+
+            backdrop-filter:
+                blur(28px);
+
+            -webkit-backdrop-filter:
+                blur(28px);
+
+            box-shadow:
+
+                0 30px 90px
+                rgba(0,0,0,0.48),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.08);
+
+            animation:
+                pageEnter 0.7s ease;
+
+        }
+
+
+        @keyframes pageEnter {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.98);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =========================================
+           SUCCESS ICON
+        ========================================= */
+
+        .icon-wrapper {
+
+            position: relative;
+
+            width: 78px;
+
+            height: 78px;
+
+            margin:
+                0 auto 21px;
+
+            padding: 4px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 15px 40px
+                rgba(99,102,241,0.25);
+
+            animation:
+                iconPop 0.7s ease 0.15s both;
+
+        }
+
+
+        .icon-wrapper::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: -8px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(129,140,248,0.16);
+
+            animation:
+                pulse 2.5s ease-in-out infinite;
+
+        }
+
+
+        .icon {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                #10162a;
+
+            color:
+                #86efac;
+
+            font-size: 28px;
+
+            font-weight: 600;
+
+        }
+
+
+        @keyframes iconPop {
+
+            0% {
+
+                opacity: 0;
+
+                transform:
+                    scale(0.5)
+                    rotate(-15deg);
+
+            }
+
+            70% {
+
+                transform:
+                    scale(1.08)
+                    rotate(3deg);
+
+            }
+
+            100% {
+
+                opacity: 1;
+
+                transform:
+                    scale(1)
+                    rotate(0);
+
+            }
+
+        }
+
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+
+                opacity: 0.35;
+
+                transform:
+                    scale(1);
+
+            }
+
+            50% {
+
+                opacity: 0;
+
+                transform:
+                    scale(1.18);
+
+            }
+
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        h1 {
+
+            font-size: 31px;
+
+            letter-spacing: -0.8px;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .subtitle {
+
+            color:
+                rgba(255,255,255,0.43);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            margin-bottom: 23px;
+
+        }
+
+
+        /* =========================================
+           TEST NAME
+        ========================================= */
+
+        .test-name {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                9px 17px;
+
+            margin-bottom: 22px;
+
+            border-radius: 10px;
+
+            color:
+                #c4b5fd;
+
+            background:
+                rgba(99,102,241,0.09);
+
+            border:
+                1px solid
+                rgba(129,140,248,0.16);
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            box-shadow:
+                inset 0 1px 0
+                rgba(255,255,255,0.04);
+
+        }
+
+
+        /* =========================================
+           SCORE CARD
+        ========================================= */
+
+        .score-box {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                30px 20px;
+
+            margin-bottom: 17px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(99,102,241,0.10),
+                    rgba(168,85,247,0.06)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            box-shadow:
+                inset 0 1px 0
+                rgba(255,255,255,0.04);
+
+        }
+
+
+        .score-box::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 190px;
+
+            height: 190px;
+
+            top: -125px;
+
+            right: -70px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(99,102,241,0.12);
+
+            filter: blur(25px);
+
+        }
+
+
+        .score-box::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+
+            height: 150px;
+
+            left: -100px;
+
+            bottom: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(168,85,247,0.08);
+
+            filter: blur(20px);
+
+        }
+
+
+        .score {
+
+            position: relative;
+
+            z-index: 1;
+
+            font-size: 52px;
+
+            line-height: 1;
+
+            font-weight: 700;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a5b4fc,
+                    #c4b5fd
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            -webkit-text-fill-color:
+                transparent;
+
+        }
+
+
+        .score-label {
+
+            position: relative;
+
+            z-index: 1;
+
+            color:
+                rgba(255,255,255,0.38);
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.2px;
+
+        }
+
+
+        /* =========================================
+           STATISTICS
+        ========================================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .stat {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                20px 12px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.075);
+
+            transition:
+                transform 0.25s,
+                background 0.25s,
+                border-color 0.25s,
+                box-shadow 0.25s;
+
+        }
+
+
+        .stat::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 70px;
+
+            height: 70px;
+
+            right: -35px;
+
+            top: -35px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            transition:
+                transform 0.3s;
+
+        }
+
+
+        .stat:hover {
+
+            transform:
+                translateY(-4px);
+
+            background:
+                rgba(255,255,255,0.075);
+
+            border-color:
+                rgba(255,255,255,0.14);
+
+            box-shadow:
+                0 14px 30px
+                rgba(0,0,0,0.18);
+
+        }
+
+
+        .stat:hover::before {
+
+            transform:
+                scale(1.7);
+
+        }
+
+
+        .number {
+
+            position: relative;
+
+            z-index: 1;
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .label {
+
+            position: relative;
+
+            z-index: 1;
+
+            color:
+                rgba(255,255,255,0.38);
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+
+        }
+
+
+        .correct {
+
+            color:
+                #86efac;
+
+        }
+
+
+        .wrong {
+
+            color:
+                #fca5a5;
+
+        }
+
+
+        .total {
+
+            color:
+                #93c5fd;
+
+        }
+
+
+        /* =========================================
+           ATTEMPT
+        ========================================= */
+
+        .attempt {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 24px;
+
+            padding:
+                7px 13px;
+
+            border-radius: 8px;
+
+            color:
+                rgba(255,255,255,0.38);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.065);
+
+            font-size: 10px;
+
+        }
+
+
+        /* =========================================
+           ACTION BUTTONS
+        ========================================= */
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+        }
+
+
+        .btn {
+
+            position: relative;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            min-width: 150px;
+
+            padding:
+                12px 20px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s,
+                background 0.25s;
+
+        }
+
+
+        .dashboard {
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 10px 25px
+                rgba(99,102,241,0.20);
+
+        }
+
+
+        .history {
+
+            color:
+                rgba(255,255,255,0.70);
+
+            background:
+                rgba(255,255,255,0.055);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-3px);
+
+        }
+
+
+        .dashboard:hover {
+
+            box-shadow:
+                0 15px 35px
+                rgba(99,102,241,0.32);
+
+        }
+
+
+        .history:hover {
+
+            color: white;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            border-color:
+                rgba(255,255,255,0.16);
+
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+
+            margin-top: 27px;
+
+            padding-top: 17px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.06);
+
+            color:
+                rgba(255,255,255,0.22);
+
+            font-size: 9px;
+
+            letter-spacing: 0.3px;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding:
+                    20px 12px;
+
+                align-items:
+                    flex-start;
+
+            }
+
+
+            .container {
+
+                padding:
+                    30px 20px;
+
+                margin-top:
+                    15px;
+
+                border-radius:
+                    23px;
+
+            }
+
+
+            h1 {
+
+                font-size: 27px;
+
+            }
+
+
+            .score {
+
+                font-size: 45px;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .buttons {
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+
+        @media (max-width: 380px) {
+
+            .container {
+
+                padding:
+                    26px 16px;
+
+            }
+
+
+            h1 {
+
+                font-size: 25px;
+
+            }
+
+
+            .icon-wrapper {
+
+                width: 70px;
+
+                height: 70px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="orb orb-one"></div>
+
+    <div class="orb orb-two"></div>
+
+
+    <!-- MAIN -->
+
+    <div class="container">
+
+
+        <!-- SUCCESS ICON -->
+
+        <div class="icon-wrapper">
+
+            <div class="icon">
+
+                ✓
+
+            </div>
+
+        </div>
+
+
+        <!-- HEADER -->
+
+        <h1>
+
+            Test Completed
+
+        </h1>
+
+
+        <p class="subtitle">
+
+            Your test has been submitted successfully.
+
+        </p>
+
+
+        <!-- TEST NAME -->
+
+        <div class="test-name">
+
+            {{ test.title }}
+
+        </div>
+
+
+        <!-- SCORE -->
+
+        <div class="score-box">
+
+            <div class="score">
+
+                {{ points }}
+
+            </div>
+
+            <div class="score-label">
+
+                Points Scored
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div class="number total">
+
+                    {{ total_questions }}
+
+                </div>
+
+                <div class="label">
+
+                    Total Questions
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="number correct">
+
+                    {{ correct }}
+
+                </div>
+
+                <div class="label">
+
+                    Correct
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="number wrong">
+
+                    {{ wrong }}
+
+                </div>
+
+                <div class="label">
+
+                    Wrong
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ATTEMPT -->
+
+        <div class="attempt">
+
+            Attempt #{{ attempt_number }}
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="buttons">
+
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="btn dashboard"
+            >
+
+                ← Dashboard
+
+            </a>
+
+
+            <a
+                href="{% url 'test_history' %}"
+                class="btn history"
+            >
+
+                View Test History →
+
+            </a>
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            Online Testing System
+            &nbsp;•&nbsp;
+            Test Result
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
+

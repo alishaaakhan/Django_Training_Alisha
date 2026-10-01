@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'mycss.css' %}">
+</head>
+<body>
+    <h1 style="color: aliceblue; font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: xx-large; background-color: rgb(221, 46, 133);">Sagar Group of Institutions </h1>
+    <div>
+        <img src="{% static 'sistec.jpeg' %}" alt="Sagar Group of institutions" style="max-width: 100%; height: auto; ">
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <div>
+        <h1>Alisha Khan</h1>
+    </div>
+</body>
+</html>

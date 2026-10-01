@@ -1,0 +1,2791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online Testing System</title>
+
+
+    <style>
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #ffffff;
+            background: #060914;
+            overflow-x: hidden;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        button {
+            font-family: inherit;
+        }
+
+
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(
+                    circle at 50% -20%,
+                    rgba(99,102,241,0.12),
+                    transparent 40%
+                );
+        }
+
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0.42;
+            animation: float 12s ease-in-out infinite;
+        }
+
+
+        .orb.one {
+            width: 480px;
+            height: 480px;
+            top: -180px;
+            left: -140px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(99,102,241,0.48),
+                    transparent 70%
+                );
+        }
+
+
+        .orb.two {
+            width: 520px;
+            height: 520px;
+            right: -190px;
+            top: 25%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(139,92,246,0.42),
+                    transparent 70%
+                );
+
+            animation-delay: -4s;
+        }
+
+
+        .orb.three {
+            width: 400px;
+            height: 400px;
+            bottom: -190px;
+            left: 32%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(59,130,246,0.25),
+                    transparent 70%
+                );
+
+            animation-delay: -7s;
+        }
+
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform:
+                    translate3d(0,0,0)
+                    scale(1);
+            }
+
+            50% {
+                transform:
+                    translate3d(35px,-28px,0)
+                    scale(1.08);
+            }
+
+        }
+
+
+
+        /* =========================================================
+           GRID
+        ========================================================= */
+
+        .grid {
+            position: fixed;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.022) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.022) 1px,
+                    transparent 1px
+                );
+
+            background-size: 50px 50px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 90%
+                );
+
+            pointer-events: none;
+        }
+
+
+
+        /* =========================================================
+           CURSOR LIGHT
+        ========================================================= */
+
+        .cursor-light {
+            position: fixed;
+
+            width: 320px;
+            height: 320px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(99,102,241,0.09),
+                    transparent 68%
+                );
+
+            transform:
+                translate(-50%,-50%);
+
+            pointer-events: none;
+
+            z-index: 1;
+
+            transition:
+                left 0.12s ease-out,
+                top 0.12s ease-out;
+        }
+
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+
+            position: relative;
+            z-index: 20;
+
+            width: min(1180px, 92%);
+
+            margin: 22px auto 0;
+
+            padding: 12px 14px 12px 18px;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,0.30);
+
+            transition:
+                background 0.3s,
+                border-color 0.3s;
+        }
+
+
+        .navbar:hover {
+            background:
+                rgba(255,255,255,0.06);
+
+            border-color:
+                rgba(255,255,255,0.14);
+        }
+
+
+        .brand {
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .brand-mark {
+
+            position: relative;
+
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 8px 30px
+                rgba(99,102,241,0.30);
+
+            overflow: hidden;
+        }
+
+
+        .brand-mark::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 70px;
+            height: 70px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.25);
+
+            transform:
+                rotate(45deg);
+        }
+
+
+        .brand-mark span {
+
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            box-shadow:
+                0 0 18px
+                rgba(255,255,255,0.65);
+        }
+
+
+        .brand-name {
+
+            font-size: 14px;
+            font-weight: 700;
+
+            letter-spacing: 0.2px;
+        }
+
+
+        .brand-subtitle {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color:
+                rgba(255,255,255,0.35);
+
+            font-size: 9px;
+
+            letter-spacing: 0.2px;
+        }
+
+
+        .nav-actions {
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        .nav-btn {
+
+            position: relative;
+
+            padding:
+                10px 16px;
+
+            border-radius: 10px;
+
+            font-size: 12px;
+
+            transition:
+                transform 0.25s,
+                background 0.25s,
+                box-shadow 0.25s;
+        }
+
+
+        .login-btn {
+
+            color:
+                rgba(255,255,255,0.68);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            background:
+                rgba(255,255,255,0.035);
+        }
+
+
+        .login-btn:hover {
+
+            color: white;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .signup-btn {
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 8px 28px
+                rgba(99,102,241,0.22);
+        }
+
+
+        .signup-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 38px
+                rgba(99,102,241,0.40);
+        }
+
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            position: relative;
+            z-index: 2;
+
+            width:
+                min(1050px, 92%);
+
+            margin: auto;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding:
+                105px 0 85px;
+        }
+
+
+        .eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding:
+                8px 14px;
+
+            margin-bottom: 27px;
+
+            border-radius: 30px;
+
+            color:
+                rgba(255,255,255,0.62);
+
+            font-size: 10px;
+
+            letter-spacing: 0.4px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            backdrop-filter:
+                blur(18px);
+
+            animation:
+                fadeUp 0.8s ease both;
+        }
+
+
+        .eyebrow-line {
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background:
+                #8b5cf6;
+
+            box-shadow:
+                0 0 14px
+                rgba(139,92,246,0.85);
+        }
+
+
+        .hero h1 {
+
+            max-width: 920px;
+
+            font-size:
+                clamp(46px, 7vw, 82px);
+
+            line-height: 1.01;
+
+            letter-spacing:
+                -4.5px;
+
+            margin-bottom: 27px;
+
+            animation:
+                fadeUp 0.8s ease 0.08s both;
+        }
+
+
+        .hero h1 .muted {
+
+            color:
+                rgba(255,255,255,0.90);
+        }
+
+
+        .gradient-text {
+
+            background:
+                linear-gradient(
+                    110deg,
+                    #ffffff 5%,
+                    #c4b5fd 38%,
+                    #818cf8 70%,
+                    #a78bfa 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .hero-description {
+
+            max-width: 650px;
+
+            color:
+                rgba(255,255,255,0.43);
+
+            font-size: 14px;
+
+            line-height: 1.85;
+
+            margin-bottom: 34px;
+
+            animation:
+                fadeUp 0.8s ease 0.16s both;
+        }
+
+
+
+        /* =========================================================
+           HERO ACTIONS
+        ========================================================= */
+
+        .hero-actions {
+
+            display: flex;
+
+            gap: 12px;
+
+            animation:
+                fadeUp 0.8s ease 0.24s both;
+        }
+
+
+        .hero-btn {
+
+            position: relative;
+
+            min-width: 155px;
+
+            padding:
+                14px 22px;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            border-radius: 11px;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s,
+                border-color 0.25s;
+        }
+
+
+        .hero-btn::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -120%;
+
+            width: 70%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.18),
+                    transparent
+                );
+
+            transform:
+                skewX(-20deg);
+
+            transition:
+                left 0.65s;
+        }
+
+
+        .hero-btn:hover::before {
+            left: 150%;
+        }
+
+
+        .primary {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 12px 35px
+                rgba(99,102,241,0.25);
+        }
+
+
+        .primary:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 18px 45px
+                rgba(99,102,241,0.42);
+        }
+
+
+        .secondary {
+
+            color:
+                rgba(255,255,255,0.70);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            backdrop-filter:
+                blur(18px);
+        }
+
+
+        .secondary:hover {
+
+            color: white;
+
+            transform:
+                translateY(-3px);
+
+            background:
+                rgba(255,255,255,0.07);
+
+            border-color:
+                rgba(255,255,255,0.18);
+        }
+
+
+        .button-arrow {
+
+            transition:
+                transform 0.25s;
+        }
+
+
+        .hero-btn:hover .button-arrow {
+
+            transform:
+                translateX(4px);
+        }
+
+
+
+        /* =========================================================
+           QUICK STATS
+        ========================================================= */
+
+        .quick-stats {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 38px;
+
+            margin-top: 48px;
+
+            animation:
+                fadeUp 0.8s ease 0.32s both;
+        }
+
+
+        .quick-stat {
+
+            min-width: 100px;
+        }
+
+
+        .stat-value {
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            color:
+                #c4b5fd;
+
+            margin-bottom: 5px;
+        }
+
+
+        .stat-label {
+
+            color:
+                rgba(255,255,255,0.30);
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+        }
+
+
+        .stat-divider {
+
+            width: 1px;
+
+            height: 32px;
+
+            background:
+                rgba(255,255,255,0.10);
+        }
+
+
+
+        /* =========================================================
+           CATEGORY BAR
+        ========================================================= */
+
+        .categories {
+
+            width:
+                min(920px, 100%);
+
+            margin-top: 75px;
+
+            padding: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.065);
+
+            animation:
+                fadeUp 0.8s ease 0.4s both;
+        }
+
+
+        .category {
+
+            padding:
+                8px 13px;
+
+            border-radius: 8px;
+
+            color:
+                rgba(255,255,255,0.40);
+
+            font-size: 10px;
+
+            border:
+                1px solid
+                transparent;
+
+            transition:
+                color 0.25s,
+                background 0.25s,
+                border-color 0.25s,
+                transform 0.25s;
+        }
+
+
+        .category:hover {
+
+            color:
+                rgba(255,255,255,0.88);
+
+            background:
+                rgba(99,102,241,0.08);
+
+            border-color:
+                rgba(99,102,241,0.18);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .category.active {
+
+            color:
+                #c4b5fd;
+
+            background:
+                rgba(99,102,241,0.10);
+
+            border-color:
+                rgba(99,102,241,0.20);
+        }
+
+
+
+        /* =========================================================
+           SECTION COMMON
+        ========================================================= */
+
+        .section {
+
+            width:
+                min(920px, 100%);
+
+            margin-top: 75px;
+        }
+
+
+        .section-head {
+
+            margin-bottom: 24px;
+
+            text-align: center;
+        }
+
+
+        .section-label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color:
+                #a78bfa;
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+
+        .section-head h2 {
+
+            font-size: 25px;
+
+            letter-spacing: -0.7px;
+        }
+
+
+        .section-head p {
+
+            max-width: 500px;
+
+            margin:
+                9px auto 0;
+
+            color:
+                rgba(255,255,255,0.35);
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+
+        /* =========================================================
+           FEATURE CARDS
+        ========================================================= */
+
+        .features {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+        }
+
+
+        .feature {
+
+            position: relative;
+
+            min-height: 210px;
+
+            padding: 25px;
+
+            overflow: hidden;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.075);
+
+            backdrop-filter:
+                blur(20px);
+
+            transition:
+                transform 0.35s,
+                background 0.35s,
+                border-color 0.35s,
+                box-shadow 0.35s;
+        }
+
+
+        .feature::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            right: -90px;
+            top: -90px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(99,102,241,0.13);
+
+            filter:
+                blur(25px);
+
+            transition:
+                transform 0.45s;
+        }
+
+
+        .feature:hover {
+
+            transform:
+                translateY(-7px);
+
+            background:
+                rgba(255,255,255,0.065);
+
+            border-color:
+                rgba(255,255,255,0.14);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,0.25);
+        }
+
+
+        .feature:hover::after {
+
+            transform:
+                scale(1.6);
+        }
+
+
+        .feature-index {
+
+            position: absolute;
+
+            top: 22px;
+            right: 22px;
+
+            color:
+                rgba(255,255,255,0.14);
+
+            font-size: 10px;
+
+            letter-spacing: 1px;
+        }
+
+
+        .feature-icon {
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 22px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(99,102,241,0.09);
+
+            border:
+                1px solid
+                rgba(99,102,241,0.20);
+
+            transition:
+                transform 0.3s,
+                background 0.3s;
+        }
+
+
+        .feature-icon::before {
+
+            content: "";
+
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid
+                #a78bfa;
+
+            box-shadow:
+                0 0 14px
+                rgba(167,139,250,0.55);
+        }
+
+
+        .feature:hover .feature-icon {
+
+            transform:
+                scale(1.08)
+                rotate(-5deg);
+
+            background:
+                rgba(99,102,241,0.15);
+        }
+
+
+        .feature h3 {
+
+            font-size: 14px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .feature p {
+
+            color:
+                rgba(255,255,255,0.37);
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+
+
+        /* =========================================================
+           HOW IT WORKS
+        ========================================================= */
+
+        .steps {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+        }
+
+
+        .step {
+
+            position: relative;
+
+            padding: 24px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,0.028);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.065);
+
+            transition:
+                transform 0.3s,
+                background 0.3s,
+                border-color 0.3s;
+        }
+
+
+        .step:hover {
+
+            transform:
+                translateY(-5px);
+
+            background:
+                rgba(255,255,255,0.05);
+
+            border-color:
+                rgba(139,92,246,0.18);
+        }
+
+
+        .step-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 18px;
+        }
+
+
+        .step-number {
+
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            color: white;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 7px 20px
+                rgba(99,102,241,0.20);
+        }
+
+
+        .step-line {
+
+            flex: 1;
+
+            height: 1px;
+
+            margin-left: 12px;
+
+            background:
+                rgba(255,255,255,0.08);
+        }
+
+
+        .step h3 {
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .step p {
+
+            color:
+                rgba(255,255,255,0.34);
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+
+
+        /* =========================================================
+           DASHBOARD PREVIEW
+        ========================================================= */
+
+        .preview {
+
+            position: relative;
+
+            width:
+                min(920px, 100%);
+
+            margin-top: 75px;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.22);
+
+            overflow: hidden;
+        }
+
+
+        .preview::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            padding: 1px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(139,92,246,0.20),
+                    transparent 40%,
+                    rgba(99,102,241,0.12)
+                );
+
+            mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+
+            mask-composite:
+                exclude;
+
+            pointer-events: none;
+        }
+
+
+        .preview-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+        }
+
+
+        .preview-title {
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .preview-subtitle {
+
+            margin-top: 4px;
+
+            color:
+                rgba(255,255,255,0.30);
+
+            font-size: 9px;
+        }
+
+
+        .preview-status {
+
+            padding:
+                6px 10px;
+
+            border-radius: 20px;
+
+            color:
+                #86efac;
+
+            font-size: 9px;
+
+            background:
+                rgba(34,197,94,0.07);
+
+            border:
+                1px solid
+                rgba(34,197,94,0.14);
+        }
+
+
+        .preview-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr 1fr;
+
+            gap: 12px;
+        }
+
+
+        .preview-card {
+
+            padding: 19px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
+        }
+
+
+        .preview-label {
+
+            display: block;
+
+            margin-bottom: 9px;
+
+            color:
+                rgba(255,255,255,0.28);
+
+            font-size: 8px;
+
+            letter-spacing: 0.8px;
+
+            text-transform: uppercase;
+        }
+
+
+        .preview-card strong {
+
+            font-size: 17px;
+        }
+
+
+        .progress {
+
+            height: 5px;
+
+            margin-top: 13px;
+
+            overflow: hidden;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.07);
+        }
+
+
+        .progress span {
+
+            display: block;
+
+            width: 72%;
+
+            height: 100%;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #6366f1,
+                    #a78bfa
+                );
+
+            animation:
+                progressLoad 1.5s ease;
+        }
+
+
+        @keyframes progressLoad {
+
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 72%;
+            }
+        }
+
+
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta {
+
+            position: relative;
+
+            width:
+                min(920px, 100%);
+
+            margin-top: 65px;
+
+            padding:
+                42px 30px;
+
+            text-align: center;
+
+            border-radius: 21px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(99,102,241,0.12),
+                    rgba(139,92,246,0.07)
+                );
+
+            border:
+                1px solid
+                rgba(139,92,246,0.16);
+        }
+
+
+        .cta::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            left: 50%;
+            top: -210px;
+
+            transform:
+                translateX(-50%);
+
+            border-radius: 50%;
+
+            background:
+                rgba(99,102,241,0.15);
+
+            filter:
+                blur(35px);
+        }
+
+
+        .cta-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .cta h2 {
+
+            font-size: 25px;
+
+            letter-spacing: -0.7px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .cta p {
+
+            color:
+                rgba(255,255,255,0.38);
+
+            font-size: 11px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .cta-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding:
+                12px 20px;
+
+            border-radius: 10px;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 10px 30px
+                rgba(99,102,241,0.25);
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s;
+        }
+
+
+        .cta-btn:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 16px 38px
+                rgba(99,102,241,0.40);
+        }
+
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+
+            width:
+                min(920px,100%);
+
+            margin-top: 35px;
+
+            padding-bottom: 15px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color:
+                rgba(255,255,255,0.23);
+
+            font-size: 9px;
+        }
+
+
+
+        /* =========================================================
+           SCROLL REVEAL
+        ========================================================= */
+
+        .reveal {
+
+            opacity: 0;
+
+            transform:
+                translateY(25px);
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+
+        .reveal.visible {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+
+        /* =========================================================
+           FADE UP
+        ========================================================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .features,
+            .steps {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .preview-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .feature {
+
+                min-height:
+                    auto;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                width: 94%;
+
+                padding:
+                    11px;
+            }
+
+
+            .brand-subtitle {
+
+                display: none;
+            }
+
+
+            .brand-name {
+
+                font-size: 12px;
+            }
+
+
+            .brand-mark {
+
+                width: 35px;
+                height: 35px;
+            }
+
+
+            .nav-btn {
+
+                padding:
+                    9px 11px;
+
+                font-size: 10px;
+            }
+
+
+            .hero {
+
+                width: 90%;
+
+                padding:
+                    75px 0 60px;
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    clamp(40px, 12vw, 60px);
+
+                letter-spacing:
+                    -2.8px;
+            }
+
+
+            .hero-description {
+
+                font-size: 12px;
+            }
+
+
+            .hero-actions {
+
+                width: 100%;
+
+                flex-direction:
+                    column;
+            }
+
+
+            .hero-btn {
+
+                width: 100%;
+            }
+
+
+            .quick-stats {
+
+                width: 100%;
+
+                gap: 8px;
+
+                justify-content:
+                    space-between;
+            }
+
+
+            .stat-value {
+
+                font-size: 16px;
+            }
+
+
+            .stat-label {
+
+                font-size: 8px;
+            }
+
+
+            .categories {
+
+                justify-content:
+                    flex-start;
+            }
+
+
+            .section,
+            .preview,
+            .cta,
+            .footer {
+
+                width: 100%;
+            }
+
+
+            .footer {
+
+                flex-direction:
+                    column;
+
+                gap: 8px;
+
+                text-align: center;
+            }
+
+        }
+
+
+        @media (max-width: 400px) {
+
+            .login-btn {
+
+                display: none;
+            }
+
+
+            .hero h1 {
+
+                font-size: 37px;
+            }
+
+        }
+
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                scroll-behavior:
+                    auto !important;
+
+                transition-duration:
+                    0.01ms !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================= -->
+
+    <div class="background">
+
+        <div class="orb one"></div>
+
+        <div class="orb two"></div>
+
+        <div class="orb three"></div>
+
+        <div class="grid"></div>
+
+    </div>
+
+
+    <div class="cursor-light"></div>
+
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================= -->
+
+    <nav class="navbar">
+
+
+        <a
+            href="{% url 'home' %}"
+            class="brand"
+        >
+
+            <div class="brand-mark">
+                <span></span>
+            </div>
+
+
+            <div>
+
+                <div class="brand-name">
+                    Online Testing System
+                </div>
+
+                <span class="brand-subtitle">
+                    Test. Learn. Improve.
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <div class="nav-actions">
+
+
+            <a
+                href="{% url 'login' %}"
+                class="nav-btn login-btn"
+            >
+                Login
+            </a>
+
+
+            <a
+                href="{% url 'signup' %}"
+                class="nav-btn signup-btn"
+            >
+                Sign Up
+            </a>
+
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================= -->
+
+    <main class="hero">
+
+
+        <!-- HERO -->
+
+        <div class="eyebrow">
+
+            <span class="eyebrow-line"></span>
+
+            Modern Online Assessment Platform
+
+        </div>
+
+
+        <h1>
+
+            <span class="muted">
+                Test your knowledge.
+            </span>
+
+            <br>
+
+            <span class="gradient-text">
+                Track your progress.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Take structured assessments, practice technical
+            subjects and monitor your performance through
+            a single, focused testing platform.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+
+            <a
+                href="{% url 'signup' %}"
+                class="hero-btn primary"
+            >
+
+                Get Started
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="{% url 'login' %}"
+                class="hero-btn secondary"
+            >
+
+                Login to Continue
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- QUICK STATS -->
+
+        <div class="quick-stats">
+
+
+            <div class="quick-stat">
+
+                <div class="stat-value">
+                    MCQ
+                </div>
+
+                <div class="stat-label">
+                    Test Format
+                </div>
+
+            </div>
+
+
+            <div class="stat-divider"></div>
+
+
+            <div class="quick-stat">
+
+                <div class="stat-value">
+                    Fast
+                </div>
+
+                <div class="stat-label">
+                    Results
+                </div>
+
+            </div>
+
+
+            <div class="stat-divider"></div>
+
+
+            <div class="quick-stat">
+
+                <div class="stat-value">
+                    History
+                </div>
+
+                <div class="stat-label">
+                    Performance
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             CATEGORIES
+        ====================================================== -->
+
+        <div class="categories reveal">
+
+
+            <div class="category active">
+                All Tests
+            </div>
+
+            <div class="category">
+                Python
+            </div>
+
+            <div class="category">
+                Django
+            </div>
+
+            <div class="category">
+                C++
+            </div>
+
+            <div class="category">
+                Frontend
+            </div>
+
+            <div class="category">
+                OOP
+            </div>
+
+            <div class="category">
+                Database
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             FEATURES
+        ====================================================== -->
+
+        <section class="section reveal">
+
+
+            <div class="section-head">
+
+                <span class="section-label">
+                    PLATFORM FEATURES
+                </span>
+
+                <h2>
+                    Everything you need to practice
+                </h2>
+
+                <p>
+                    A simple testing workflow designed
+                    for focused practice and measurable progress.
+                </p>
+
+            </div>
+
+
+            <div class="features">
+
+
+                <div class="feature">
+
+
+                    <span class="feature-index">
+                        01
+                    </span>
+
+
+                    <div class="feature-icon"></div>
+
+
+                    <h3>
+                        Multiple Tests
+                    </h3>
+
+
+                    <p>
+                        Practice Python, Django, C++,
+                        Frontend, OOP and other subjects
+                        available on the platform.
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="feature">
+
+
+                    <span class="feature-index">
+                        02
+                    </span>
+
+
+                    <div class="feature-icon"></div>
+
+
+                    <h3>
+                        Instant Results
+                    </h3>
+
+
+                    <p>
+                        Submit your answers and quickly
+                        view your score, correct answers
+                        and earned points.
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="feature">
+
+
+                    <span class="feature-index">
+                        03
+                    </span>
+
+
+                    <div class="feature-icon"></div>
+
+
+                    <h3>
+                        Performance History
+                    </h3>
+
+
+                    <p>
+                        Keep track of previous attempts
+                        and understand your testing
+                        performance over time.
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             HOW IT WORKS
+        ====================================================== -->
+
+        <section class="section reveal">
+
+
+            <div class="section-head">
+
+                <span class="section-label">
+                    WORKFLOW
+                </span>
+
+                <h2>
+                    How it works
+                </h2>
+
+            </div>
+
+
+            <div class="steps">
+
+
+                <div class="step">
+
+
+                    <div class="step-top">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div class="step-line"></div>
+
+                    </div>
+
+
+                    <h3>
+                        Create an account
+                    </h3>
+
+
+                    <p>
+                        Register your account with
+                        your basic details and create
+                        your secure login credentials.
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="step">
+
+
+                    <div class="step-top">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="step-line"></div>
+
+                    </div>
+
+
+                    <h3>
+                        Select a test
+                    </h3>
+
+
+                    <p>
+                        Open your dashboard and choose
+                        a subject or test that you want
+                        to practice.
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="step">
+
+
+                    <div class="step-top">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="step-line"></div>
+
+                    </div>
+
+
+                    <h3>
+                        Review your result
+                    </h3>
+
+
+                    <p>
+                        Submit your answers and review
+                        your score, points and previous
+                        attempts.
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PLATFORM PREVIEW
+        ====================================================== -->
+
+        <section class="preview reveal">
+
+
+            <div class="preview-header">
+
+
+                <div>
+
+                    <div class="preview-title">
+                        Testing Dashboard
+                    </div>
+
+                    <div class="preview-subtitle">
+                        A quick look at your testing journey
+                    </div>
+
+                </div>
+
+
+                <div class="preview-status">
+                    System Ready
+                </div>
+
+
+            </div>
+
+
+
+            <div class="preview-grid">
+
+
+                <div class="preview-card">
+
+                    <span class="preview-label">
+                        Testing Progress
+                    </span>
+
+                    <strong>
+                        Keep improving
+                    </strong>
+
+
+                    <div class="progress">
+
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="preview-card">
+
+                    <span class="preview-label">
+                        Test Format
+                    </span>
+
+                    <strong>
+                        MCQ
+                    </strong>
+
+                </div>
+
+
+
+                <div class="preview-card">
+
+                    <span class="preview-label">
+                        Results
+                    </span>
+
+                    <strong>
+                        Instant
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CTA
+        ====================================================== -->
+
+        <section class="cta reveal">
+
+
+            <div class="cta-content">
+
+
+                <h2>
+                    Ready to start testing?
+                </h2>
+
+
+                <p>
+                    Create your account and begin your
+                    first assessment.
+                </p>
+
+
+                <a
+                    href="{% url 'signup' %}"
+                    class="cta-btn"
+                >
+
+                    Create Account
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <footer class="footer">
+
+            <span>
+                Online Testing System
+            </span>
+
+            <span>
+                <b style="font-size: small;">Made by Alisha Khan ♥</b><br>Built with Django · Secure Authentication · Database-Powered Testing
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+
+        /* =====================================================
+           CURSOR LIGHT
+        ===================================================== */
+
+        const cursorLight =
+            document.querySelector(".cursor-light");
+
+
+        document.addEventListener(
+            "mousemove",
+            function(event) {
+
+                cursorLight.style.left =
+                    event.clientX + "px";
+
+                cursorLight.style.top =
+                    event.clientY + "px";
+
+            }
+        );
+
+
+
+        /* =====================================================
+           SCROLL REVEAL
+        ===================================================== */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+
+        const observer =
+            new IntersectionObserver(
+                function(entries) {
+
+                    entries.forEach(
+                        function(entry) {
+
+                            if (entry.isIntersecting) {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        revealElements.forEach(
+            function(element) {
+
+                observer.observe(element);
+
+            }
+        );
+
+
+
+        /* =====================================================
+           CATEGORY INTERACTION
+        ===================================================== */
+
+        const categories =
+            document.querySelectorAll(".category");
+
+
+        categories.forEach(
+            function(category) {
+
+                category.addEventListener(
+                    "click",
+                    function() {
+
+                        categories.forEach(
+                            function(item) {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                        category.classList.add(
+                            "active"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           BUTTON PRESS EFFECT
+        ===================================================== */
+
+        const buttons =
+            document.querySelectorAll(
+                ".hero-btn, .nav-btn, .cta-btn"
+            );
+
+
+        buttons.forEach(
+            function(button) {
+
+                button.addEventListener(
+                    "mousedown",
+                    function() {
+
+                        button.style.transform =
+                            "scale(0.97)";
+
+                    }
+                );
+
+
+                button.addEventListener(
+                    "mouseup",
+                    function() {
+
+                        button.style.transform =
+                            "";
+
+                    }
+                );
+
+
+                button.addEventListener(
+                    "mouseleave",
+                    function() {
+
+                        button.style.transform =
+                            "";
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           CARD TILT EFFECT
+        ===================================================== */
+
+        const cards =
+            document.querySelectorAll(
+                ".feature, .step"
+            );
+
+
+        cards.forEach(
+            function(card) {
+
+                card.addEventListener(
+                    "mousemove",
+                    function(event) {
+
+                        if (
+                            window.innerWidth < 900
+                        ) {
+                            return;
+                        }
+
+
+                        const rect =
+                            card.getBoundingClientRect();
+
+
+                        const x =
+                            event.clientX -
+                            rect.left;
+
+
+                        const y =
+                            event.clientY -
+                            rect.top;
+
+
+                        const centerX =
+                            rect.width / 2;
+
+
+                        const centerY =
+                            rect.height / 2;
+
+
+                        const rotateX =
+                            ((y - centerY) /
+                            centerY) * -2;
+
+
+                        const rotateY =
+                            ((x - centerX) /
+                            centerX) * 2;
+
+
+                        card.style.transform =
+                            `perspective(700px)
+                             rotateX(${rotateX}deg)
+                             rotateY(${rotateY}deg)
+                             translateY(-5px)`;
+
+                    }
+                );
+
+
+                card.addEventListener(
+                    "mouseleave",
+                    function() {
+
+                        card.style.transform =
+                            "";
+
+                    }
+                );
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
+
